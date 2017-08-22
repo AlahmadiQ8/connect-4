@@ -7,6 +7,9 @@ import { linkTo } from '@storybook/addon-links';
 import { Button, Welcome } from '@storybook/react/demo';
 import Checker from '../src/components/SandBox.jsx';
 import CheckerIcon from '../src/components/Checker.jsx';
+import Board from '../src/components/Board.jsx';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -22,3 +25,6 @@ storiesOf('Checker', module)
   .add('red', () => <CheckerIcon color='red'/>)
   .add('yellow', () => <CheckerIcon color='yellow'/>)
   .add('200px', () => <CheckerIcon color='red' size='100' />)
+
+storiesOf('Board', module)
+  .add('test', () => <Board/>);
