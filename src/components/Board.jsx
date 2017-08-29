@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Checker from './Checker';
 
-const color = '#2196F3'
+const boardColor = '#2196F3'
 
 const Box = styled.div`
   background-color: ${props => props.color};
@@ -21,15 +21,30 @@ const Circle = ({size, color}) => (
   </svg>
 );
 
-export const Board = () => {
-  return (<div style={{width:'490px'}} className="d-flex flex-wrap">
-    {[...Array(42).keys()].map(() =>
-      <Box color={color} size='70px'>
-        <Circle size='50' color='#fff'/>
+
+const Board = ({checkerSize, rows, cols}) => {
+  const checkerContainerSize = Number.parseInt(checkerSize * 1.4);
+  const boardWidth = checkerContainerSize * cols; 
+
+  return (<div style={{width:`${boardWidth}px`}} className="d-flex flex-wrap">
+    {[...Array(rows * cols).keys()].map(() =>
+      <Box color={boardColor} size={`${checkerContainerSize}px`}>
+        <Circle size={checkerSize} color='#fff'/>
       </Box>
     )}
   </div>);
 }
 
+Board.propTypes = {
+  checkerSize: PropTypes.number,
+  rows: PropTypes.number,
+  cols: PropTypes.number
+}
+
+Board.defaultProps = {
+  checkerSize: 50, 
+  rows: 6, 
+  cols: 7,
+}
 
 export default Board;

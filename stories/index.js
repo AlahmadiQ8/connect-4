@@ -27,4 +27,5 @@ storiesOf('Checker', module)
   .add('200px', () => <CheckerIcon color='red' size='100' />)
 
 storiesOf('Board', module)
-  .add('test', () => <Board/>);
+  .add('7x6 50px circles', () => <Board/>)
+  .add('10x10 10px circles', () => <Board rows='10' cols='10' checkerSize='25'/>);
