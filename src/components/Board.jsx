@@ -21,14 +21,24 @@ const Circle = ({size, color}) => (
   </svg>
 );
 
+Circle.propTypes = {
+  size: PropTypes.number,
+  color: PropTypes.string,
+}
+
+Circle.defaultProps = {
+  size: 50, 
+  color: '#fff',
+}
+
 
 const Board = ({checkerSize, rows, cols}) => {
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4);
   const boardWidth = checkerContainerSize * cols; 
 
   return (<div style={{width:`${boardWidth}px`}} className="d-flex flex-wrap">
-    {[...Array(rows * cols).keys()].map(() =>
-      <Box color={boardColor} size={`${checkerContainerSize}px`}>
+    {[...Array(rows * cols).keys()].map((val, index) =>
+      <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
         <Circle size={checkerSize} color='#fff'/>
       </Box>
     )}

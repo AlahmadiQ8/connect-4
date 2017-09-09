@@ -91,7 +91,7 @@ const invertTheme = ({ fg, bg }) => ({
 });
 
 
-export default  (props) => {
+export default function Sanbox(props) {
   return (
     <Wrapper>
 			<div>
@@ -101,7 +101,7 @@ export default  (props) => {
 	      <Button>Normal</Button>
 	  		<Button primary>Primary</Button>
 	      <TomatoButton>Test</TomatoButton>
-	      <Rotate>&lt; 💅 &gt;</Rotate>
+	      <Rotate>&lt; <span role="img" aria-label="omg">💅</span> &gt;</Rotate>
 			</div>
 			<div>
 				<ThemeProvider theme={theme}>
