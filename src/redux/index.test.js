@@ -50,7 +50,9 @@ test('insertChecker reducer should insert checker with column has empty slots', 
   result = reducer(result, actions.insertChecker(0, 5));
   result = reducer(result, actions.insertChecker(0, 5));
   expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(14);
-  const expextedGrid = List(times(35, () => null)).concat(List(times(7, () => 0)));
+  const expextedGrid = List(times(35, () => null)).concat(
+    List(times(7, () => 0))
+  );
   expect(result.get('grid').equals(expextedGrid)).toBe(true);
 });
 
@@ -61,7 +63,9 @@ test('insertChecker reducer should not alter state if insertChecker is applied o
     reducer(initialState, actions.initializeBoard(6, 7))
   );
   expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
-  const expextedGrid = List(times(36, () => null)).concat(List(times(6, () => 0)));
+  const expextedGrid = List(times(36, () => null)).concat(
+    List(times(6, () => 0))
+  );
   expect(result.get('grid').equals(expextedGrid)).toBe(true);
 });
 

@@ -15,7 +15,13 @@ const colors = {
 const Checker = ({ color, size }) => (
   <svg width={`${size}px`} height={`${size}px`} viewBox={`0 0 200 200`}>
     <title>Checker</title>
-    <circle fill={colors[color].primary} id="path-1" cx="100" cy="100" r="100" />
+    <circle
+      fill={colors[color].primary}
+      id="path-1"
+      cx="100"
+      cy="100"
+      r="100"
+    />
     <circle fill={colors[color].secondary} cx="100" cy="100" r="78.5123967" />
     <polygon
       id="Star"

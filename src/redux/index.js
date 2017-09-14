@@ -42,7 +42,10 @@ export const reducer = handleActions(
       return state.set('currentPlayerIndex', 1 - current);
     },
 
-    [actions.insertChecker]: (state, { payload: { playerIndex, colIndex } }) => {
+    [actions.insertChecker]: (
+      state,
+      { payload: { playerIndex, colIndex } }
+    ) => {
       return state;
     },
   },
