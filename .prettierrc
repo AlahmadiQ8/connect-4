@@ -1,8 +1,5 @@
 {
   "printWidth": 100,
   "singleQuote": true,
-  "trailingComma": "es5",
-  "overrides": [{
-    "files": ["src/**/*.{js,jsx}"]
-  }]
+  "trailingComma": "es5"
 }

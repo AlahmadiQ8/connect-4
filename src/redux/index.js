@@ -1,9 +1,6 @@
 import { fromJS, List } from 'immutable';
-import times from 'lodash/times'; 
-import { 
-  createActions, 
-  handleActions, 
-} from 'redux-actions';
+import times from 'lodash/times';
+import { createActions, handleActions } from 'redux-actions';
 
 export const actions = createActions({
   INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
@@ -22,32 +19,32 @@ const defaultState = fromJS({
     {
       name: 'A',
       availableCheckers: 0,
-    }, 
+    },
     {
       name: 'B',
       availableCheckers: 0,
-    }
+    },
   ],
 });
 
-export const reducer = handleActions({
-  
-  [actions.initializeBoard]: (state, { payload: { rows, cols }}) => (
-    state
-      .set('grid', List(times(rows * cols, () => null)))
-      .set('cols', cols)
-      .set('rows', rows)
-      .setIn(['players', 0, 'availableCheckers'], rows * cols / 2)
-      .setIn(['players', 1, 'availableCheckers'], rows * cols / 2)
-  ),
+export const reducer = handleActions(
+  {
+    [actions.initializeBoard]: (state, { payload: { rows, cols } }) =>
+      state
+        .set('grid', List(times(rows * cols, () => null)))
+        .set('cols', cols)
+        .set('rows', rows)
+        .setIn(['players', 0, 'availableCheckers'], rows * cols / 2)
+        .setIn(['players', 1, 'availableCheckers'], rows * cols / 2),
 
-  [actions.togglePlayer]: state => {
-    const current = state.get('currentPlayerIndex');
-    return state.set('currentPlayerIndex', 1 - current);
+    [actions.togglePlayer]: state => {
+      const current = state.get('currentPlayerIndex');
+      return state.set('currentPlayerIndex', 1 - current);
+    },
+
+    [actions.insertChecker]: (state, { payload: { playerIndex, colIndex } }) => {
+      return state;
+    },
   },
-
-  [actions.insertChecker]: (state, { payload: { playerIndex, colIndex } }) => {
-    return state;
-  },
-
-}, defaultState);
+  defaultState
+);
