@@ -8,7 +8,7 @@ import {
 export const actions = createActions({
   INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
   // VALID_INDEXES: undefined,
-  INSERT_CHECKER: undefined,
+  INSERT_CHECKER: (playerIndex, colIndex) => ({ playerIndex, colIndex }),
   CHECK_WINNER: undefined,
   TOGGLE_PLAYER: undefined,
 });
@@ -24,7 +24,7 @@ const defaultState = fromJS({
       availableCheckers: 0,
     }, 
     {
-      name: 'A',
+      name: 'B',
       availableCheckers: 0,
     }
   ],
@@ -44,6 +44,10 @@ export const reducer = handleActions({
   [actions.togglePlayer]: state => {
     const current = state.get('currentPlayerIndex');
     return state.set('currentPlayerIndex', 1 - current);
-  }
+  },
+
+  [actions.insertChecker]: (state, { payload: { playerIndex, colIndex } }) => {
+    return state;
+  },
 
 }, defaultState);

@@ -27,6 +27,11 @@ test('getRowIndexes returns a list of indexes for the correct row', () => {
   expect(getRowIndexes(6, 7, 0)).toEqual(range(0,7));
 });
 
+test('getRowIndexes throws error given out of range index', () => {
+  const getRowIndexesError = getRowIndexes.bind(null, 6, 7, 6);
+  expect(getRowIndexesError).toThrow();
+});
+
 test('getColIndexes returns a list of indexes for the correct row', () => {
   expect(getColIndexes(6, 7, 0)).toEqual(range(0, 36, 7));
   expect(getColIndexes(6, 7, 1)).toEqual(range(1,37, 7));
@@ -35,6 +40,11 @@ test('getColIndexes returns a list of indexes for the correct row', () => {
   expect(getColIndexes(6, 7, 4)).toEqual(range(4,40, 7));
   expect(getColIndexes(6, 7, 5)).toEqual(range(5,41, 7));
   expect(getColIndexes(6, 7, 6)).toEqual(range(6, 42, 7));
+});
+
+test('getColIndexes throws error given out of range index', () => {
+  const getColIndexesError = getColIndexes.bind(null, 6, 7, 7);
+  expect(getColIndexesError).toThrow();
 });
 
 test('getValidIndexes returns valid indexes to insert checker', () => {
