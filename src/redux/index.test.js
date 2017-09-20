@@ -1,7 +1,9 @@
 import { fromJS, List } from 'immutable';
 import times from 'lodash/times';
+import range from 'lodash/range';
 
 import { reducer, actions } from './index';
+import { printGrid } from './utils';
 
 const initialState = fromJS({
   grid: [],
@@ -44,31 +46,39 @@ test('insertChecker reducer should insert checker with column has empty slots', 
   let result = reducer(initialState, actions.initializeBoard(6, 7));
   result = reducer(result, actions.insertChecker(0, 0));
   result = reducer(result, actions.insertChecker(0, 1));
+  result = reducer(result, actions.insertChecker(0, 1));
   result = reducer(result, actions.insertChecker(0, 2));
+  result = reducer(result, actions.insertChecker(0, 3));
+  result = reducer(result, actions.insertChecker(0, 3));
   result = reducer(result, actions.insertChecker(0, 3));
   result = reducer(result, actions.insertChecker(0, 4));
   result = reducer(result, actions.insertChecker(0, 5));
-  result = reducer(result, actions.insertChecker(0, 5));
-  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(14);
-  const expextedGrid = List(times(35, () => null)).concat(
-    List(times(7, () => 0))
+  result = reducer(result, actions.insertChecker(0, 6));
+  result = reducer(result, actions.insertChecker(0, 6));
+  let expextedGrid = List(times(34, () => null)).concat(
+    List(times(8, () => 0))
   );
+  expextedGrid = expextedGrid.set(31, 0);
+  expextedGrid = expextedGrid.set(24, 0);
+  expextedGrid = expextedGrid.set(29, 0);
+  // for debuging only
+  // printGrid(result.get('grid'), result.get('rows'), result.get('cols'));
+  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(10);
   expect(result.get('grid').equals(expextedGrid)).toBe(true);
 });
 
 test('insertChecker reducer should not alter state if insertChecker is applied on full column', () => {
   let result = reducer(initialState, actions.initializeBoard(6, 7));
-  times(100).reduce(
-    result => reducer(result, actions.insertChecker(0, 0)),
-    reducer(initialState, actions.initializeBoard(6, 7))
-  );
+  times(100).forEach(i => {
+    result = reducer(result, actions.insertChecker(0, 0))
+  });
   expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
-  const expextedGrid = List(times(36, () => null)).concat(
-    List(times(6, () => 0))
-  );
+  let expextedGrid = List(times(42, () => null));
+  range(0, 36, 7).forEach(i => {
+    expextedGrid = expextedGrid.set(i, 0);
+  })
+  // for debuging only
+  // printGrid(result.get('grid'), result.get('rows'), result.get('cols'));
+  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
   expect(result.get('grid').equals(expextedGrid)).toBe(true);
-});
-
-test('insertChecker reducer should not alter state if player twice in a row', () => {
-  fail();
 });

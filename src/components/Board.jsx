@@ -36,7 +36,7 @@ const Board = ({ checkerSize, rows, cols }) => {
   const boardWidth = checkerContainerSize * cols;
 
   return (
-    <div style={{ width: `${boardWidth}px` }} className="d-flex flex-wrap">
+    <div style={{ width: `${boardWidth}px` }} className="mx-auto d-flex flex-wrap">
       {[...Array(rows * cols).keys()].map((val, index) => (
         <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
           <Circle size={checkerSize} color="#fff" />

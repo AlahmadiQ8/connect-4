@@ -1,6 +1,8 @@
 import { fromJS, List } from 'immutable';
 import times from 'lodash/times';
+import { compose, ifElse } from 'ramda';
 import { createActions, handleActions } from 'redux-actions';
+import { getValidIndexInCol } from './utils';
 
 export const actions = createActions({
   INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
@@ -46,7 +48,17 @@ export const reducer = handleActions(
       state,
       { payload: { playerIndex, colIndex } }
     ) => {
-      return state;
+      const curPlayerIndex = state.get('currentPlayerIndex');
+      return compose(
+        ifElse(
+          i => i < 0, 
+          () => state, 
+          index => state
+            .setIn(['grid', index], curPlayerIndex)
+            .updateIn(['players', curPlayerIndex, 'availableCheckers'], val => val-1)
+        ),
+        getValidIndexInCol(state.get('grid'), state.get('rows'), state.get('cols'))
+      )(colIndex);
     },
   },
   defaultState
