@@ -17,6 +17,7 @@ const defaultState = fromJS({
   cols: 0,
   rows: 0,
   currentPlayerIndex: 0,
+  winner: null,
   players: [
     {
       name: 'A',
@@ -60,6 +61,10 @@ export const reducer = handleActions(
         getValidIndexInCol(state.get('grid'), state.get('rows'), state.get('cols'))
       )(colIndex);
     },
+
+    [actions.checkWinner]: state => {
+      return state;
+    }
   },
   defaultState
 );

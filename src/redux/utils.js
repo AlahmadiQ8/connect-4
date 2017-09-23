@@ -40,3 +40,22 @@ export const printGrid = (grid, rows, cols) => {
   )).join('\n');
   console.log(str);
 };
+
+/*
+ * Could be optimized by only checking win around the last inserted checker
+ * For now, we just loop through the entire board
+ */
+export const checkHorizontalWin = (grid, rows, cols, playerIndex) => {
+  
+  for (let i=0; i<rows*cols; i+=cols) {
+    for (let j=i; j<i+cols-4+1; j+=1) {
+      const test = grid.slice(j, j+4);
+      const didWin = test.every(val => val !== null && val === playerIndex);
+      if(didWin) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

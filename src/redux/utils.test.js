@@ -2,7 +2,12 @@ import { List } from 'immutable';
 import range from 'lodash/range';
 import times from 'lodash/times';
 
-import { getRowIndexes, getColIndexes, getValidIndexes } from './utils';
+import {
+  getRowIndexes,
+  getColIndexes,
+  getValidIndexes,
+  checkHorizontalWin,
+} from './utils';
 
 const gridEmpty = List(times(42, () => null));
 const gridPartiallyFilled = gridEmpty
@@ -54,4 +59,9 @@ test('getValidIndexes returns valid indexes to insert checker', () => {
   expect(validIndexes).toEqual([35, 29, 23, 17, 25, 33, 34]);
   validIndexes = getValidIndexes(gridFull, 6, 7);
   expect(validIndexes).toEqual([]);
+});
+
+test.only('checkHorizontalWin returns ', () => {
+  const gridEmpty = List(times(42, i => i));
+  checkHorizontalWin(gridEmpty, 6, 7, 0);
 });
