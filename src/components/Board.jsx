@@ -32,7 +32,7 @@ Circle.defaultProps = {
 };
 
 const Board = ({ checkerSize, rows, cols }) => {
-  const checkerContainerSize = Number.parseInt(checkerSize * 1.4);
+  const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
 
   return (

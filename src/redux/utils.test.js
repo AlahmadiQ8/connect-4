@@ -7,6 +7,8 @@ import {
   getColIndexes,
   getValidIndexes,
   checkHorizontalWin,
+  checkVerticalWin,
+  printGrid,
 } from './utils';
 
 const gridEmpty = List(times(42, () => null));
@@ -61,7 +63,56 @@ test('getValidIndexes returns valid indexes to insert checker', () => {
   expect(validIndexes).toEqual([]);
 });
 
-test.only('checkHorizontalWin returns ', () => {
-  const gridEmpty = List(times(42, i => i));
-  checkHorizontalWin(gridEmpty, 6, 7, 0);
+test('checkHorizontalWin returns false given a grid of nulls', () => {
+  const gridEmpty = List(times(42, () => null));
+  expect(checkHorizontalWin(gridEmpty, 6, 7, 0)).toBe(false);
+  expect(checkHorizontalWin(gridEmpty, 6, 7, 1)).toBe(false);
+});
+
+test('checkHorizontalWin returns true when there is a horizontal win for player index', () => {
+  let grid = List(times(42, i => i))
+    .set(37, 0)
+    .set(38, 0)
+    .set(39, 0)
+    .set(40, 0);
+  expect(checkHorizontalWin(grid, 6, 7, 0)).toBe(true);
+  expect(checkHorizontalWin(grid, 6, 7, 1)).toBe(false);
+  grid = List(times(42, i => i))
+    .set(21, 1)
+    .set(22, 1)
+    .set(23, 1)
+    .set(24, 1);
+    expect(checkHorizontalWin(grid, 6, 7, 0)).toBe(false);
+    expect(checkHorizontalWin(grid, 6, 7, 1)).toBe(true);
+});
+
+test('checkVerticalWin returns false given a grid of nulls', () => {
+  const gridEmpty = List(times(42, () => null));
+  expect(checkVerticalWin(gridEmpty, 6, 7, 0)).toBe(false);
+  expect(checkVerticalWin(gridEmpty, 6, 7, 1)).toBe(false);
+})
+
+test('checkVerticalWin returns true when there is a horizontal win for player index', () => {
+  let grid = List(times(42, () => null))
+    .set(14, 0)
+    .set(21, 0)
+    .set(28, 0)
+    .set(35, 0);
+  expect(checkVerticalWin(grid, 6, 7, 0)).toBe(true);
+  expect(checkVerticalWin(grid, 6, 7, 1)).toBe(false);
+  grid = List(times(42, i => null))
+    .set(6, 1)
+    .set(13, 1)
+    .set(20, 1)
+    .set(27, 1);
+    expect(checkVerticalWin(grid, 6, 7, 0)).toBe(false);
+    expect(checkVerticalWin(grid, 6, 7, 1)).toBe(true);
+    grid = List(times(42, i => null))
+    .set(11, 1)
+    .set(18, 1)
+    .set(25, 1)
+    .set(32, 1);
+    printGrid(grid, 6, 7);
+    expect(checkVerticalWin(grid, 6, 7, 0)).toBe(false);
+    expect(checkVerticalWin(grid, 6, 7, 1)).toBe(true);
 });

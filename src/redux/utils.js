@@ -1,6 +1,7 @@
 import range from 'lodash/range';
 import { curry } from 'ramda';
 import leftPad from 'left-pad';
+import Immutable from 'immutable'
 
 export const getRowIndexes = (rows, cols, rowIndex) => {
   if (rowIndex >= rows || rowIndex < 0) {
@@ -46,7 +47,6 @@ export const printGrid = (grid, rows, cols) => {
  * For now, we just loop through the entire board
  */
 export const checkHorizontalWin = (grid, rows, cols, playerIndex) => {
-  
   for (let i=0; i<rows*cols; i+=cols) {
     for (let j=i; j<i+cols-4+1; j+=1) {
       const test = grid.slice(j, j+4);
@@ -56,6 +56,28 @@ export const checkHorizontalWin = (grid, rows, cols, playerIndex) => {
       }
     }
   }
-
   return false;
+}
+
+export const checkVerticalWin = (grid, rows, cols, playerIndex) => {
+  for (let i=0; i<cols; i+=1) {
+    const colIndexes = getColIndexes(rows, cols, i)
+      .slice(0, rows-3);
+    for (let j=0; j<colIndexes.length; j+=1) {
+      const test = range(colIndexes[j], colIndexes[j]+cols*4, cols);
+      const didWin = grid.filter(keyIn(...test))
+        .every(val => val !== null && val === playerIndex);
+      if(didWin) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function keyIn(...keys) {
+  var keySet = Immutable.Set(keys); 
+  return function (v, k) {
+    return keySet.has(k);
+  }
 }
