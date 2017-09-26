@@ -112,7 +112,6 @@ test('checkVerticalWin returns true when there is a horizontal win for player in
     .set(18, 1)
     .set(25, 1)
     .set(32, 1);
-    printGrid(grid, 6, 7);
     expect(checkVerticalWin(grid, 6, 7, 0)).toBe(false);
     expect(checkVerticalWin(grid, 6, 7, 1)).toBe(true);
 });
