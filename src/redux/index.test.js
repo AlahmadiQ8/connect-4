@@ -22,6 +22,11 @@ const initialState = fromJS({
   ],
 });
 
+test('initializeBoard reducer should return initial state if no action is given', () => {
+  const result = reducer(initialState, { type: '' });
+  expect(result).toEqual(initialState);
+})
+
 test('initializeBoard reducer should initialize board with grid given cols and arrows', () => {
   const action = actions.initializeBoard(6, 7);
   const result = reducer(initialState, action);

@@ -65,15 +65,28 @@ export const checkVerticalWin = (grid, rows, cols, playerIndex) => {
       .slice(0, rows-3);
     for (let j=0; j<colIndexes.length; j+=1) {
       const test = range(colIndexes[j], colIndexes[j]+cols*4, cols);
-      const didWin = grid.filter(keyIn(...test))
-        .every(val => val !== null && val === playerIndex);
-      if(didWin) {
-        return true;
-      }
+      if (TestWin(grid, test, playerIndex)) return true;
     }
   }
   return false;
 }
+
+// NOT COMPLETE
+export const checkDiagonalWin = (grid, rows, cols, playerIndex) => {
+  for (let i = 0; i < cols-3; i += 1) {
+    const indexes = getSouthEastHorizDirIndexes(rows, cols, i);
+    const indexesToCheck = indexes.slice(0, indexes.length - 3);
+    for (let j = 0; j < indexesToCheck.length; j += 1) {
+      const test = indexes.slice(j, j+4);
+      if (TestWin(test)) return true;
+    }
+  }
+
+  return false;
+}
+
+//   // for (1 .. rows-3) * cols
+// };
 
 function keyIn(...keys) {
   var keySet = Immutable.Set(keys); 
@@ -81,3 +94,11 @@ function keyIn(...keys) {
     return keySet.has(k);
   }
 }
+
+function TestWin(grid, testIndexes, playerIndex) {
+  const didWin = grid.filter(keyIn(...testIndexes))
+    .every(val => val !== null && val === playerIndex);
+  if(didWin) {
+    return true;
+  } 
+};
