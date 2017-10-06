@@ -51,11 +51,8 @@ export const printGrid = (grid, rows, cols) => {
 export const checkHorizontalWin = (grid, rows, cols, playerIndex) => {
   for (let i = 0; i < rows * cols; i += cols) {
     for (let j = i; j < i + cols - 4 + 1; j += 1) {
-      const test = grid.slice(j, j + 4);
-      const didWin = test.every(val => val !== null && val === playerIndex);
-      if (didWin) {
-        return true;
-      }
+      const test = range(j, j + 4);
+      if (_testWin(grid, test, playerIndex)) return true;
     }
   }
   return false;
@@ -66,7 +63,7 @@ export const checkVerticalWin = (grid, rows, cols, playerIndex) => {
     const colIndexes = getColIndexes(rows, cols, i).slice(0, rows - 3);
     for (let j = 0; j < colIndexes.length; j += 1) {
       const test = range(colIndexes[j], colIndexes[j] + cols * 4, cols);
-      if (TestWin(grid, test, playerIndex)) return true;
+      if (_testWin(grid, test, playerIndex)) return true;
     }
   }
   return false;
@@ -75,30 +72,37 @@ export const checkVerticalWin = (grid, rows, cols, playerIndex) => {
 // NOT COMPLETE
 export const checkDiagonalWin = (grid, rows, cols, playerIndex) => {
   for (let i = 0; i < cols - 3; i += 1) {
-    const indexes = getSouthEastHorizDirIndexes(rows, cols, i);
+    const indexes = range(i, rows * cols, cols + 1);
     const indexesToCheck = indexes.slice(0, indexes.length - 3);
     for (let j = 0; j < indexesToCheck.length; j += 1) {
       const test = indexes.slice(j, j + 4);
-      if (TestWin(test)) return true;
+      if (_testWin(grid, test, playerIndex)) return true;
+    }
+  }
+
+  const colIndexes = getColIndexes(rows, cols, 0).slice(1, rows - 3);
+  for (let i = 0; i < colIndexes.length; i += 1) {
+    const indexes = range(colIndexes[i], rows * cols, cols + 1);
+    const indexesToCheck = indexes.slice(0, indexes.length - 3);
+    for (let j = 0; j < indexesToCheck.length; j += 1) {
+      const test = indexes.slice(j, j + 4);
+      if (_testWin(grid, test, playerIndex)) return true;
     }
   }
 
   return false;
 };
 
-//   // for (1 .. rows-3) * cols
-// };
-
-function keyIn(...keys) {
+function _keyIn(...keys) {
   var keySet = Immutable.Set(keys);
   return function(v, k) {
     return keySet.has(k);
   };
 }
 
-function TestWin(grid, testIndexes, playerIndex) {
+function _testWin(grid, testIndexes, playerIndex) {
   const didWin = grid
-    .filter(keyIn(...testIndexes))
+    .filter(_keyIn(...testIndexes))
     .every(val => val !== null && val === playerIndex);
   if (didWin) {
     return true;
