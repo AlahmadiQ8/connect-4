@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Boogaloo');
+
 body {
-  margin: 100px 0 0 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Boogaloo', cursive;
 }
 
 .background {
@@ -17,5 +18,35 @@ body {
   .background {
     left: 50%;
     transform: translate(-50%, 0);
+  }
+}
+
+h1 {
+  font-size: 2.6rem;
+  color: #90CAF9;
+}
+
+.col-middle {
+  margin-top: 150px;
+}
+
+.board {
+  margin-top: 50px;
+}
+
+.play-link {
+  color: #F48FB1;
+  animation: .75s infinite reverse jiggle;
+  animation-timing-function: linear;
+  transform: rotate(10deg);
+  display: inline-block;
+}
+
+@keyframes jiggle {
+  0% {
+  transform: rotate(10deg);
+    }
+  50% {
+  transform: rotate(-10deg);
   }
 }
