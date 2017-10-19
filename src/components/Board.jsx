@@ -15,6 +15,15 @@ const Box = styled.div`
   justify-content: center;
 `;
 
+const Section = styled.div`
+  width: ${props => props.boardWidth}px;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+`
+
 const Circle = ({ size, color }) => (
   <svg width={`${size}px`} height={`${size}px`} viewBox={`0 0 100 100`}>
     <circle fill={color} cx="50" cy="50" r="50" />
@@ -36,13 +45,13 @@ const Board = ({ checkerSize, rows, cols }) => {
   const boardWidth = checkerContainerSize * cols;
 
   return (
-    <div style={{ width: `${boardWidth}px` }} className="board mx-auto d-flex flex-wrap">
+    <Section boardWidth={boardWidth}>
       {[...Array(rows * cols).keys()].map((val, index) => (
         <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
           <Circle size={checkerSize} color="#fff" />
         </Box>
       ))}
-    </div>
+    </Section>
   );
 };
 
