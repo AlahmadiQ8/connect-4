@@ -9,7 +9,7 @@ const H1 = styled.h1`
   color: #90CAF9;
 `;
 
-const Section = styled.div`
+const Section = styled.section`
   margin-top: 150px;
 `;
 
@@ -20,12 +20,13 @@ const jiggleAnimation = keyframes`
   50% {
     transform: rotate(-5deg);
   }
+  100% {
+    transform: rotate(5deg);
+  }
 `
 const Link = styled.span`
   color: #F48FB1;
-  animation: .75s infinite reverse ${jiggleAnimation};
-  animation-timing-function: linear;
-  transform: rotate(5deg);
+  animation: ${jiggleAnimation} .75s infinite reverse linear;
   display: inline-block;
   transition: color .25s;
   cursor: default;

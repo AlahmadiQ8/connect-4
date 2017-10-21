@@ -8,6 +8,7 @@ import { Button, Welcome } from '@storybook/react/demo';
 import Checker from '../src/components/SandBox.jsx';
 import CheckerIcon from '../src/components/Checker.jsx';
 import Board from '../src/components/Board.jsx';
+import CloudTextBox from '../src/components/CloudTextBox.jsx';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -29,3 +30,13 @@ storiesOf('Checker', module)
 storiesOf('Board', module)
   .add('7x6 50px circles', () => <Board/>)
   .add('10x10 10px circles', () => <Board rows='10' cols='10' checkerSize='25'/>);
+
+storiesOf('CloudTextBox', module)
+  .addDecorator(story => (
+    <div style={{marginLeft: '100px', marginTop: '100px', fontFamily: 'Boogaloo, cursive'}}>
+      {story()}
+    </div>
+  ))
+  .add('test', () => <CloudTextBox />)
+  .add('bad', () => <CloudTextBox text="omg" />)
+  
