@@ -12,8 +12,13 @@ const colors = {
   },
 };
 
-const Checker = ({ color, size }) => (
-  <svg width={`${size}px`} height={`${size}px`} viewBox={`0 0 200 200`}>
+const Checker = ({ color, size, className }) => (
+  <svg
+    className={className}
+    width={`${size}px`}
+    height={`${size}px`}
+    viewBox={`0 0 200 200`}
+  >
     <title>Checker</title>
     <circle
       fill={colors[color].primary}

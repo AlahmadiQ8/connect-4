@@ -22,7 +22,7 @@ const Section = styled.div`
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
-`
+`;
 
 const Circle = ({ size, color }) => (
   <svg width={`${size}px`} height={`${size}px`} viewBox={`0 0 100 100`}>

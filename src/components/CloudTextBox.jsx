@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
+import * as styles from '../styles';
+
 const pulse = keyframes`
   0% {
     transform: scale(1);
@@ -20,7 +22,7 @@ const Svg = styled.svg`
 `;
 
 const Container = styled.div`
-  text-align: center;
+  ${styles.center}
   max-width: 200px;
   font-size: 18px;
   border: 1px solid #ededed;

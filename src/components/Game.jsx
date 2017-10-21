@@ -6,7 +6,7 @@ import Board from './Board';
 const H1 = styled.h1`
   text-align: center;
   font-size: 2.6rem;
-  color: #90CAF9;
+  color: #90caf9;
 `;
 
 const Section = styled.section`
@@ -23,15 +23,16 @@ const jiggleAnimation = keyframes`
   100% {
     transform: rotate(5deg);
   }
-`
+`;
+
 const Link = styled.span`
-  color: #F48FB1;
-  animation: ${jiggleAnimation} .75s infinite reverse linear;
+  color: #f48fb1;
+  animation: ${jiggleAnimation} 0.75s infinite reverse linear;
   display: inline-block;
-  transition: color .25s;
+  transition: color 0.25s;
   cursor: default;
   &:hover {
-    color: #F06292;
+    color: #f06292;
   }
 `;
 
@@ -41,7 +42,9 @@ class Game extends Component {
       <div className="container">
         <div className="row justify-content-center">
           <Section className="col">
-            <H1>Welcome! To start a new game, click <Link>play</Link></H1>
+            <H1>
+              Welcome! To start a new game, click <Link>play</Link>
+            </H1>
             <Board rows={6} cols={7} />
           </Section>
         </div>
