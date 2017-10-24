@@ -24,10 +24,6 @@
     "gpush": "git push origin master && yarn test -- --coverage && codecov --token=64aa0e17-e4ef-4ddc-8064-2ae25dfc8552"
   },
   "jest": {
-    "collectCoverageFrom" : [
-      "src/redux/**/*.{js,jsx}",
-      "!<rootDir>/node_modules/"
-    ],
     "coverageThreshold": {
       "global": {
         "branches": 95,
