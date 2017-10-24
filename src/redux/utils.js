@@ -34,16 +34,16 @@ export const getValidIndexes = (grid, rows, cols) =>
   }, []);
 
 // for debuging purposes only
-// export const printGrid = (grid, rows, cols) => {
-//   const str = range(0, rows)
-//     .map(currentRow =>
-//       range(0, cols)
-//         .map(i => leftPad(`${grid.get(currentRow * cols + i)}`, 4))
-//         .join('  ')
-//     )
-//     .join('\n');
-//   console.log(str);
-// };
+export const printGrid = (grid, rows, cols) => {
+  const str = range(0, rows)
+    .map(currentRow =>
+      range(0, cols)
+        .map(i => leftPad(`${grid.get(currentRow * cols + i)}`, 4))
+        .join('  ')
+    )
+    .join('\n');
+  console.log(str);
+};
 
 /*
  * Could be optimized by only checking win around the last inserted checker
