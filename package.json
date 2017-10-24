@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "storybook": "start-storybook -p 6006",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gpush": "git push origin master && yarn test -- --coverage && codecov --token=64aa0e17-e4ef-4ddc-8064-2ae25dfc8552"
   },
   "jest": {
     "collectCoverageFrom" : [
