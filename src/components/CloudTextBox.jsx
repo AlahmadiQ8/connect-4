@@ -25,7 +25,6 @@ const Container = styled.div`
   ${styles.center}
   max-width: 200px;
   font-size: 18px;
-  border: 1px solid #ededed;
 `;
 
 const Text = styled.div`

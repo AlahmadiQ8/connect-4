@@ -18,9 +18,12 @@ const Float = styled.span`
   float: ${props => props.dir};
 `;
 
-const Container = styled.div`${
-  styles.center}
-  max-width: 175px;`;
+const Container = styled.div`
+  ${styles.center}
+  max-width: 175px;
+  min-width: 150px;
+  margin-top: 100px;
+`;
 
 const PlayerDash = ({ color, total, used }) => {
   return (
