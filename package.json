@@ -22,6 +22,20 @@
     "storybook": "start-storybook -p 6006",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "collectCoverageFrom" : [
+      "src/redux/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    }
+  },
   "devDependencies": {
     "@storybook/react": "^3.2.12"
   }
