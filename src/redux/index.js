@@ -1,3 +1,4 @@
+import { createStore } from 'redux'
 import { fromJS, List } from 'immutable';
 import times from 'lodash/times';
 import { compose, ifElse } from 'ramda';
@@ -76,3 +77,15 @@ export const reducer = handleActions(
   },
   defaultState
 );
+
+let store; 
+
+if (process.env.NODE_ENV === 'development') {
+  store = createStore(reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+} else {
+  store = createStore(reducer);
+}
+
+export default store;

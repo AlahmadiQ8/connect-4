@@ -32,7 +32,7 @@ const Link = styled.span`
   animation: ${jiggleAnimation} 0.75s infinite reverse linear;
   display: inline-block;
   transition: color 0.25s;
-  cursor: default;
+  cursor: pointer;
   &:hover {
     color: #f06292;
   }

@@ -5,8 +5,6 @@ import styled, { css } from 'styled-components';
 import * as styles from '../styles';
 import Checker from './Checker';
 
-console.log(styles.clearFix);
-
 const DashRow = styled.div`
   ${styles.clearFix} margin-top: 10px;
   font-size: 1.2em;
