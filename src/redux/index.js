@@ -1,9 +1,15 @@
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 import { fromJS, List } from 'immutable';
 import times from 'lodash/times';
 import { compose, ifElse } from 'ramda';
 import { createActions, handleActions } from 'redux-actions';
-import { getValidIndexInCol } from './utils';
+import {
+  getValidIndexInCol,
+  checkHorizontalWin,
+  checkVerticalWin,
+  checkDiagonalWinLeftToRight,
+  checkDiagonalWinRightToLeft,
+} from './utils';
 
 export const actions = createActions({
   INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
@@ -72,16 +78,32 @@ export const reducer = handleActions(
     },
 
     [actions.checkWinner]: state => {
+      const args = [
+        state.get('grid'),
+        state.get('rows'),
+        state.get('cols'),
+        state.get('currentPlayerIndex'),
+      ];
+      if (
+        checkHorizontalWin(...args) ||
+        checkVerticalWin(...args) ||
+        checkDiagonalWinLeftToRight(...args) ||
+        checkDiagonalWinRightToLeft(...args)
+      ) {
+        return state.set('winner', state.get('currentPlayerIndex'));
+      }
       return state;
     },
   },
   defaultState
 );
 
-let store; 
+let store;
 
 if (process.env.NODE_ENV === 'development') {
-  store = createStore(reducer,
+  /* istanbul ignore next */
+  store = createStore(
+    reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 } else {
