@@ -94,7 +94,7 @@ test('checkVerticalWin returns false given a grid of nulls', () => {
   expect(checkVerticalWin(gridEmpty, 6, 7, 1)).toBe(false);
 });
 
-test('checkVerticalWin returns true when there is a horizontal win for player index', () => {
+test('checkVerticalWin returns true when there is a Vertical win for player index', () => {
   let grid = List(times(42, () => null))
     .set(14, 0)
     .set(21, 0)

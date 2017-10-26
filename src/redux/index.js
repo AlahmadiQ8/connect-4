@@ -11,6 +11,8 @@ import {
   checkDiagonalWinRightToLeft,
 } from './utils';
 
+export { default as selectors } from './selectors';
+
 export const actions = createActions({
   INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
   // VALID_INDEXES: undefined,
@@ -52,10 +54,7 @@ export const reducer = handleActions(
       return state.set('currentPlayerIndex', 1 - current);
     },
 
-    [actions.insertChecker]: (
-      state,
-      { payload: { playerIndex, colIndex } }
-    ) => {
+    [actions.insertChecker]: (state, { payload: { colIndex } }) => {
       const curPlayerIndex = state.get('currentPlayerIndex');
       return compose(
         ifElse(
@@ -98,16 +97,14 @@ export const reducer = handleActions(
   defaultState
 );
 
-let store;
-
-if (process.env.NODE_ENV === 'development') {
-  /* istanbul ignore next */
-  store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
-} else {
-  store = createStore(reducer);
-}
+/* istanbul ignore next */
+const store =
+  process.env.NODE_ENV === 'development'
+    ? createStore(
+      reducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+    : createStore(reducer);
 
 export default store;

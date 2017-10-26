@@ -1,6 +1,6 @@
 import range from 'lodash/range';
 import { curry } from 'ramda';
-import leftPad from 'left-pad';
+// import leftPad from 'left-pad';
 import Immutable from 'immutable';
 
 export const getRowIndexes = (rows, cols, rowIndex) => {
