@@ -23,7 +23,7 @@ const initialState = fromJS({
   ],
 });
 
-test('initializeBoard reducer should return initial state if no action is given', () => {
+test('Reducer should return initial state if no action is given', () => {
   const result = reducer(initialState, { type: '' });
   expect(result).toEqual(initialState);
 });

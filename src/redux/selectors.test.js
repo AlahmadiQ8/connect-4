@@ -1,25 +1,22 @@
 import { fromJS } from 'immutable';
-import { _isInitialized } from './selectors';
+import { isInitialized } from './selectors';
 
 test('isInitialized selector returns true when row or columns != zero', () => {
   let state = fromJS({
-    cols: 1,
-    rows: 0,
+    grid: [null, null],
   });
-  let result = _isInitialized(state);
+  let result = isInitialized(state);
   expect(result).toBeTruthy;
   state = fromJS({
-    cols: 0,
-    rows: 1,
+    grid: [undefined, undefined],
   });
-  result = _isInitialized(state);
-  expect(result).toBeTruthy;
+  result = isInitialized(state);
+  expect(result).toBe(true);
 });
 test('isInitialized selector returns false when row and columns = zero', () => {
   const state = fromJS({
-    cols: 0,
-    rows: 0,
+    grid: [],
   });
-  const result = _isInitialized(state);
-  expect(result).toBeFalsy;
+  const result = isInitialized(state);
+  expect(result).toBe(false);
 });

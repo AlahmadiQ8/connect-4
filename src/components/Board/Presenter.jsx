@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Checker from '../Checker';
+import { selectorPropTypes } from '../../redux/selectors';
 
 const boardColor = '#2196F3';
 
@@ -40,26 +41,36 @@ Circle.defaultProps = {
   color: '#fff',
 };
 
-const Board = ({ checkerSize, rows, cols }) => {
+const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
+  if (!isInitialized) {
+    rows = 6;
+    cols = 7;
+  }
+
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
 
+  const currGrid = isInitialized
+    ? grid
+    : [...Array(rows * cols)].map(_ => Math.floor(Math.random() * 2));
+
   return (
     <Section boardWidth={boardWidth}>
-      {[...Array(rows * cols).keys()].map((val, index) => (
+      {currGrid.map((val, index) => (
         <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
-          <Circle size={checkerSize} color="#fff" />
+          <Checker size={checkerSize} color={val ? 'red': 'yellow'} />
         </Box>
       ))}
     </Section>
   );
 };
 
-Board.propTypes = {
-  checkerSize: PropTypes.number,
-  rows: PropTypes.number,
-  cols: PropTypes.number,
-};
+Board.propTypes = Object.assign(
+  {
+    checkerSize: PropTypes.number,
+  },
+  selectorPropTypes
+);
 
 Board.defaultProps = {
   checkerSize: 50,

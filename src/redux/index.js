@@ -11,8 +11,6 @@ import {
   checkDiagonalWinRightToLeft,
 } from './utils';
 
-export { default as selectors } from './selectors';
-
 export const actions = createActions({
   INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
   // VALID_INDEXES: undefined,

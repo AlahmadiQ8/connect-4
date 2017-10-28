@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 
 import Board from './Presenter';
-import { selectors } from '../../redux';
+import selectors from '../../redux/selectors';
 
-const mapStateToProps = selectors;
-
-export default connect(mapStateToProps, null)(Board);
+export default connect(selectors, null)(Board);
