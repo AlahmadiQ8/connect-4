@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { isInitialized } from './selectors';
+import selectors, { isInitialized } from './selectors';
 
 test('isInitialized selector returns true when row or columns != zero', () => {
   let state = fromJS({
@@ -19,4 +19,20 @@ test('isInitialized selector returns false when row and columns = zero', () => {
   });
   const result = isInitialized(state);
   expect(result).toBe(false);
+});
+
+test('selectors returns the grid, row, and col', () => {
+  const state = fromJS({
+    grid: ['test'],
+    cols: 6,
+    rows: 7,
+  });
+  const [grid, rows, cols] = [
+    selectors(state).grid.toJS(),
+    selectors(state).rows,
+    selectors(state).cols,
+  ];
+  expect(grid).toEqual(['test']);
+  expect(rows).toEqual(7);
+  expect(cols).toEqual(6);
 });
