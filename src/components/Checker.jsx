@@ -12,12 +12,15 @@ const colors = {
   },
 };
 
-const Checker = ({ color, size, className }) => (
+const Checker = ({ color, size, className, ...props }) => (
   <svg
     className={className}
     width={`${size}px`}
     height={`${size}px`}
-    viewBox={`0 0 200 200`}
+    viewBox="0 0 200 200"
+    ref={el => {
+      props.checkerSvgRef(el);
+    }}
   >
     <title>Checker</title>
     <circle
@@ -39,11 +42,14 @@ const Checker = ({ color, size, className }) => (
 Checker.propTypes = {
   color: PropTypes.oneOf(['red', 'yellow']).isRequired,
   size: PropTypes.number,
+  className: PropTypes.string,
+  checkerSvgRef: PropTypes.func,
 };
 
 Checker.defaultProps = {
-  color: 'red',
   size: 50,
+  className: '',
+  checkerSvgRef: () => {},
 };
 
 export default Checker;

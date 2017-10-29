@@ -23,10 +23,10 @@ const Container = styled.div`
   margin-top: 100px;
 `;
 
-const PlayerDash = ({ color, total, used }) => {
+const PlayerDash = ({ color, total, used, ...props }) => {
   return (
     <Container>
-      <Checker color={color} />
+      <Checker color={color} checkerSvgRef={props.checkerSvgRef} />
       <div>
         <DashRow>
           <Float dir="left">Available Checkers</Float>
@@ -45,6 +45,13 @@ PlayerDash.propTypes = {
   color: PropTypes.oneOf(['red', 'yellow']).isRequired,
   total: PropTypes.number,
   used: PropTypes.number,
+  checkerSvgRef: PropTypes.func,
+};
+
+PlayerDash.defaultProps = {
+  total: 0,
+  used: 0,
+  checkerSvgRef: () => {},
 };
 
 export default PlayerDash;

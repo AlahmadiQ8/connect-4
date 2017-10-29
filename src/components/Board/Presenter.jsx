@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Motion, spring } from 'react-motion';
 
 import Checker from '../Checker';
+import Circle from './Circle';
+
 import { selectorPropTypes } from '../../redux/selectors';
+
+import { hwAcceleration } from '../../styles';
 
 const boardColor = '#2196F3';
 
@@ -25,21 +30,10 @@ const Section = styled.div`
   flex-wrap: wrap;
 `;
 
-const Circle = ({ size, color }) => (
-  <svg width={`${size}px`} height={`${size}px`} viewBox={`0 0 100 100`}>
-    <circle fill={color} cx="50" cy="50" r="50" />
-  </svg>
-);
-
-Circle.propTypes = {
-  size: PropTypes.number,
-  color: PropTypes.string,
-};
-
-Circle.defaultProps = {
-  size: 50,
-  color: '#fff',
-};
+const AnimatedChecker = styled(Checker)`
+  ${hwAcceleration}
+  transform: translate3d(${props => props.x}px, 0, 0);
+`;
 
 const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   if (!isInitialized) {
@@ -58,7 +52,20 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
     <Section boardWidth={boardWidth}>
       {currGrid.map((val, index) => (
         <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
-          <Checker size={checkerSize} color={val ? 'red': 'yellow'} />
+          <Circle size={checkerSize} />
+          <Motion
+            style={{
+              x: spring(isInitialized ? 100 : 0),
+            }}
+          >
+            {({ x }) => (
+              <AnimatedChecker
+                x={x}
+                size={checkerSize}
+                color={val ? 'red' : 'yellow'}
+              />
+            )}
+          </Motion>
         </Box>
       ))}
     </Section>
