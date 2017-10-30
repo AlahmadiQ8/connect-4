@@ -1,11 +1,11 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
-export const isInitialized = state => (
-  state.get('grid').size !== 0
-);
+export const isInitializedSelector = state =>
+  state.getIn(['game', 'grid']).size !== 0;
 
-const currentPlayerIndex = state => state.get('currentPlayerIndex');
+const currentPlayerIndexSelector = state =>
+  state.getIn(['game', 'currentPlayerIndex']);
 
 export const selectorPropTypes = {
   isInitialized: PropTypes.bool.isRequired,
@@ -15,9 +15,9 @@ export const selectorPropTypes = {
 };
 
 export default createStructuredSelector({
-  isInitialized,
-  grid: state => state.get('grid'),
-  cols: state => state.get('cols'),
-  rows: state => state.get('rows'),
-  currentPlayerIndex,
+  isInitialized: isInitializedSelector,
+  grid: state => state.getIn(['game', 'grid']),
+  cols: state => state.getIn(['game', 'cols']),
+  rows: state => state.getIn(['game', 'rows']),
+  currentPlayerIndex: currentPlayerIndexSelector,
 });

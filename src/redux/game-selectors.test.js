@@ -1,32 +1,31 @@
 import { fromJS } from 'immutable';
-import selectors, { isInitialized } from './game-selectors';
+import selectors, { isInitializedSelector } from './game-selectors';
 
-test('isInitialized selector returns true when row or columns != zero', () => {
-  let state = fromJS({
-    grid: [null, null],
-  });
-  let result = isInitialized(state);
+const gameState = fromJS({ game: {} });
+
+test('isInitializedSelector returns true when grid size != 0', () => {
+  let state = gameState.set('game', fromJS({ grid: [null, null] }));
+  let result = isInitializedSelector(state);
   expect(result).toBeTruthy;
-  state = fromJS({
-    grid: [undefined, undefined],
-  });
-  result = isInitialized(state);
+  state = gameState.set('game', fromJS({ grid: [undefined, undefined] }));
+  result = isInitializedSelector(state);
   expect(result).toBe(true);
 });
-test('isInitialized selector returns false when row and columns = zero', () => {
-  const state = fromJS({
-    grid: [],
-  });
-  const result = isInitialized(state);
+test('isInitializedSelector returns false when grid size = 0', () => {
+  const state = gameState.set('game', fromJS({ grid: [] }));
+  const result = isInitializedSelector(state);
   expect(result).toBe(false);
 });
 
 test('selectors returns the grid, row, and col', () => {
-  const state = fromJS({
-    grid: ['test'],
-    cols: 6,
-    rows: 7,
-  });
+  const state = gameState.set(
+    'game',
+    fromJS({
+      grid: ['test'],
+      cols: 6,
+      rows: 7,
+    })
+  );
   const [grid, rows, cols] = [
     selectors(state).grid.toJS(),
     selectors(state).rows,

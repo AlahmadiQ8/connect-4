@@ -11,12 +11,14 @@ import {
   checkDiagonalWinRightToLeft,
 } from './utils';
 
-export const actions = createActions({
-  INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
-  // VALID_INDEXES: undefined,
-  INSERT_CHECKER: (playerIndex, colIndex) => ({ playerIndex, colIndex }),
-  CHECK_WINNER: undefined,
-  TOGGLE_PLAYER: undefined,
+export const { game: actions } = createActions({
+  game: {
+    INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
+    // VALID_INDEXES: undefined,
+    INSERT_CHECKER: (playerIndex, colIndex) => ({ playerIndex, colIndex }),
+    CHECK_WINNER: undefined,
+    TOGGLE_PLAYER: undefined,
+  },
 });
 
 const defaultState = fromJS({

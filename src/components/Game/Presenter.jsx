@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
@@ -15,10 +15,7 @@ const H1 = styled.h1`
   color: #90caf9;
 `;
 
-const Section = styled.section`
-  height: 718px;
-  display: ${props => { return props.show ? 'flex' : 'none'; }};
-`;
+const Section = styled.section`height: 718px;`;
 
 const jiggleAnimation = keyframes`
   0% {
@@ -43,77 +40,42 @@ const Button = styled.span`
   }
 `;
 
-class Game extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  handleClick = () => {
-    console.log(this.elLeftDashChecker);
-    console.log(this.elRightDashChecker);
-  };
-
-  componentDidMount() {
-    console.log('omg');
-    console.log(this.elLeftDashChecker.getBoundingClientRect());
-    console.log(this.elRightDashChecker.getBoundingClientRect());
-  }
-
-  componentDidUpdate() {
-    console.log('omg');
-    console.log(this.elLeftDashChecker.getBoundingClientRect());
-    console.log(this.elRightDashChecker.getBoundingClientRect());
-  }
-
-  render() {
-    const { isInitialized, initializeBoard } = this.props;
-    return (
-      <div className="container">
-        <div className="row justify-content-center">
-          <Section className="col d-flex flex-column align-items-center justify-content-end order-2">
-            {!isInitialized && (
-              <H1>
-                Welcome! To start a new game, click{' '}
-                <Button onClick={() => initializeBoard(6, 7)}>play</Button>
-              </H1>
-            )}
-            <Board rows={6} cols={7} />
-          </Section>
-          <Section
-            show={isInitialized}
-            className="col flex-column align-items-center justify-content-end order-1"
-          >
-            <CloudTextBox />
-            <PlayerDash
-              color="yellow"
-              total={21}
-              used={15}
-              checkerSvgRef={el => {
-                this.elLeftDashChecker = el;
-              }}
-            />
-            <button onClick={this.handleClick}>Test</button>
-          </Section>
-          <Section
-            show={isInitialized}
-            className="col flex-column align-items-center justify-content-end order-3"
-          >
-            <PlayerDash
-              color="red"
-              total={21}
-              used={15}
-              checkerSvgRef={el => {
-                this.elRightDashChecker = el;
-              }}
-            />
-            <button onClick={this.handleClick}>Test</button>
-          </Section>
-        </div>
-      </div>
-    );
-  }
-}
+const Game = ({ isInitialized, initializeBoard }) => (
+  <div className="container">
+    <div className="row justify-content-center">
+      <Section className="col d-flex flex-column align-items-center justify-content-end order-2">
+        {!isInitialized && (
+          <H1>
+            Welcome! To start a new game, click{' '}
+            <Button onClick={() => initializeBoard(6, 7)}>play</Button>
+          </H1>
+        )}
+        <Board rows={6} cols={7} />
+      </Section>
+      {isInitialized && (
+        <Section className="col d-flex flex-column align-items-center justify-content-end order-1">
+          <CloudTextBox />
+          <PlayerDash
+            color="yellow"
+            total={21}
+            used={15}
+            getRectDirection="left"
+          />
+        </Section>
+      )}
+      {isInitialized && (
+        <Section className="col d-flex flex-column align-items-center justify-content-end order-3">
+          <PlayerDash
+            color="red"
+            total={21}
+            used={15}
+            getRectDirection="right"
+          />
+        </Section>
+      )}
+    </div>
+  </div>
+);
 
 Game.propTypes = selectorPropTypes;
 

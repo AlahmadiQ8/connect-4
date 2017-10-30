@@ -1,8 +1,10 @@
 import { fromJS, Map } from 'immutable';
 import { createActions, handleActions } from 'redux-actions';
 
-export const actions = createActions({
-  SET_DASH_CHECKER_RECT: (rect, side) => ({ rect, side }),
+export const { ui: actions } = createActions({
+  ui: {
+    SET_DASH_CHECKER_RECT: (rect, side) => ({ rect, side }),
+  }
 });
 
 const defaultState = fromJS({
