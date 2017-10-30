@@ -2,7 +2,7 @@ import { fromJS, List } from 'immutable';
 import times from 'lodash/times';
 import range from 'lodash/range';
 
-import { reducer, actions } from './index';
+import { reducer, actions } from './game';
 import { printGrid } from './utils';
 
 const initialState = fromJS({

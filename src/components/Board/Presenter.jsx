@@ -6,7 +6,7 @@ import { Motion, spring } from 'react-motion';
 import Checker from '../Checker';
 import Circle from './Circle';
 
-import { selectorPropTypes } from '../../redux/selectors';
+import { selectorPropTypes } from '../../redux/game-selectors';
 
 import { hwAcceleration } from '../../styles';
 

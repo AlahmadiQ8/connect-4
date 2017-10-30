@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
-import { selectorPropTypes } from '../../redux/selectors';
+import { selectorPropTypes } from '../../redux/game-selectors';
 
 import Board from '../Board';
 import PlayerDash from '../PlayerDash';

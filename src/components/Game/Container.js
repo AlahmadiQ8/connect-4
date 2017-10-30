@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actions } from '../../redux';
-import selectors from '../../redux/selectors';
+import { actions } from '../../redux/game';
+import selectors from '../../redux/game-selectors';
 
 import Game from './Presenter';
 

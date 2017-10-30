@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import selectors, { isInitialized } from './selectors';
+import selectors, { isInitialized } from './game-selectors';
 
 test('isInitialized selector returns true when row or columns != zero', () => {
   let state = fromJS({
