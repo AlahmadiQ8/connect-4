@@ -23,11 +23,12 @@ const expected = fromJS({
       x: 0,
       y: 0,
     },
+    grid: [],
   },
   game: {
     grid: [],
-    cols: 0,
-    rows: 0,
+    cols: 7,
+    rows: 6,
     currentPlayerIndex: 0,
     winner: null,
     players: [

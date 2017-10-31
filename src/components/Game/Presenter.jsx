@@ -40,17 +40,22 @@ const Button = styled.span`
   }
 `;
 
-const Game = ({ isInitialized, initializeBoard }) => (
+const Game = ({
+  rows,
+  cols,
+  isInitialized,
+  initializeBoard,
+}) => (
   <div className="container">
     <div className="row justify-content-center">
       <Section className="col d-flex flex-column align-items-center justify-content-end order-2">
         {!isInitialized && (
           <H1>
             Welcome! To start a new game, click{' '}
-            <Button onClick={() => initializeBoard(6, 7)}>play</Button>
+            <Button onClick={() => initializeBoard(rows, cols)}>play</Button>
           </H1>
         )}
-        <Board rows={6} cols={7} />
+        <Board rows={rows} cols={cols} />
       </Section>
       {isInitialized && (
         <Section className="col d-flex flex-column align-items-center justify-content-end order-1">

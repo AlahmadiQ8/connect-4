@@ -1,10 +1,12 @@
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 import { createActions, handleActions } from 'redux-actions';
+import times from 'lodash/times';
 
 export const { ui: actions } = createActions({
   ui: {
     SET_DASH_CHECKER_RECT: (rect, side) => ({ rect, side }),
-  }
+    INITIALIZE_UI_GRID: (rows, cols) => ({ rows, cols }),
+  },
 });
 
 const defaultState = fromJS({
@@ -28,6 +30,7 @@ const defaultState = fromJS({
     x: 0,
     y: 0,
   },
+  grid: [],
 });
 
 export const reducer = handleActions(
@@ -66,6 +69,9 @@ export const reducer = handleActions(
           y: rect.y,
         })
       );
+    },
+    [actions.initializeUiGrid]: (state, { payload: { rows, cols } }) => {
+      return state.set('grid', List(times(rows * cols, () => null)));
     },
   },
   defaultState

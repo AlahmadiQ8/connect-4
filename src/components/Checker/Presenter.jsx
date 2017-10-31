@@ -16,7 +16,6 @@ class Checker extends Component {
   componentDidMount() {
     const { getRectDirection, setDashCheckerRect } = this.props;
     if (getRectDirection) {
-      console.log(getRectDirection)
       setDashCheckerRect(this.checkerRef.getBoundingClientRect(), getRectDirection);
     }
   }
@@ -61,6 +60,7 @@ Checker.propTypes = {
   className: PropTypes.string,
   setDashCheckerRect: PropTypes.func,
   getRectDirection: PropTypes.string,
+  gridIndex: PropTypes.number,
 };
 
 Checker.defaultProps = {
@@ -68,6 +68,7 @@ Checker.defaultProps = {
   className: '',
   setDashCheckerRect: () => {},
   getRectDirection: '',
+  gridIndex: -1,
 };
 
 export default Checker;

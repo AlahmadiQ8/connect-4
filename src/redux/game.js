@@ -23,8 +23,8 @@ export const { game: actions } = createActions({
 
 const defaultState = fromJS({
   grid: [],
-  cols: 0,
-  rows: 0,
+  cols: 7,
+  rows: 6,
   currentPlayerIndex: 0,
   winner: null,
   players: [

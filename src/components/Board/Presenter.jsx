@@ -63,6 +63,7 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
                 x={x}
                 size={checkerSize}
                 color={val ? 'red' : 'yellow'}
+                gridIndex={index}
               />
             )}
           </Motion>
