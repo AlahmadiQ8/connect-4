@@ -1,6 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
+import { TransitionMotion, spring } from 'react-motion';
 
 import { selectorPropTypes } from '../../redux/game-selectors';
 
@@ -13,9 +13,14 @@ const H1 = styled.h1`
   text-align: center;
   font-size: 2.6rem;
   color: #90caf9;
+  min-width: 585px;
 `;
 
 const Section = styled.section`height: 718px;`;
+
+const BoardSection = styled(Section)`
+  min-width: 600px;
+`;
 
 const jiggleAnimation = keyframes`
   0% {
@@ -40,47 +45,58 @@ const Button = styled.span`
   }
 `;
 
-const Game = ({
-  rows,
-  cols,
-  isInitialized,
-  initializeBoard,
-}) => (
-  <div className="container">
-    <div className="row justify-content-center">
-      <Section className="col d-flex flex-column align-items-center justify-content-end order-2">
-        {!isInitialized && (
-          <H1>
-            Welcome! To start a new game, click{' '}
-            <Button onClick={() => initializeBoard(rows, cols)}>play</Button>
-          </H1>
+const Game = ({ rows, cols, isInitialized, initializeBoard }) => {
+  const transitionStyles = !isInitialized
+    ? [{ key: '0', style: { opacity: 1 } }]
+    : [];
+  return (
+    <div className="container">
+      <div className="row justify-content-center">
+        <BoardSection className="col d-flex flex-column align-items-center justify-content-end order-2">
+          <TransitionMotion
+            willLeave={() => ({ opacity: spring(0) })}
+            styles={transitionStyles}
+          >
+            {configs => (
+              <div>
+                {configs.map(config => (
+                  <H1 key={config.key} style={config.style}>
+                    Welcome! To start a new game, click{' '}
+                    <Button onClick={() => initializeBoard(rows, cols)}>
+                      play
+                    </Button>
+                  </H1>
+                ))}
+              </div>
+            )}
+          </TransitionMotion>
+          <Board rows={rows} cols={cols} />
+        </BoardSection>
+        {isInitialized && (
+          <Section className="col d-flex flex-column align-items-center justify-content-end order-1">
+            <CloudTextBox />
+            <PlayerDash
+              color="yellow"
+              total={21}
+              used={15}
+              getRectDirection="left"
+            />
+          </Section>
         )}
-        <Board rows={rows} cols={cols} />
-      </Section>
-      {isInitialized && (
-        <Section className="col d-flex flex-column align-items-center justify-content-end order-1">
-          <CloudTextBox />
-          <PlayerDash
-            color="yellow"
-            total={21}
-            used={15}
-            getRectDirection="left"
-          />
-        </Section>
-      )}
-      {isInitialized && (
-        <Section className="col d-flex flex-column align-items-center justify-content-end order-3">
-          <PlayerDash
-            color="red"
-            total={21}
-            used={15}
-            getRectDirection="right"
-          />
-        </Section>
-      )}
+        {isInitialized && (
+          <Section className="col d-flex flex-column align-items-center justify-content-end order-3">
+            <PlayerDash
+              color="red"
+              total={21}
+              used={15}
+              getRectDirection="right"
+            />
+          </Section>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Game.propTypes = selectorPropTypes;
 

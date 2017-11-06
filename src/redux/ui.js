@@ -2,6 +2,8 @@ import { fromJS, Map, List } from 'immutable';
 import { createActions, handleActions } from 'redux-actions';
 import times from 'lodash/times';
 
+import { domRectToObject } from '../utils';
+
 export const { ui: actions } = createActions({
   ui: {
     SET_DASH_CHECKER_RECT: (rect, side) => ({ rect, side }),
@@ -44,30 +46,12 @@ export const reducer = handleActions(
       if (side === 'left') {
         return state.set(
           'leftDashChecker',
-          Map({
-            top: rect.top,
-            right: rect.right,
-            bottom: rect.bottom,
-            left: rect.left,
-            width: rect.width,
-            height: rect.height,
-            x: rect.x,
-            y: rect.y,
-          })
+          Map(domRectToObject(rect))
         );
       }
       return state.set(
         'rightDashChecker',
-        Map({
-          top: rect.top,
-          right: rect.right,
-          bottom: rect.bottom,
-          left: rect.left,
-          width: rect.width,
-          height: rect.height,
-          x: rect.x,
-          y: rect.y,
-        })
+        Map(domRectToObject(rect))
       );
     },
     [actions.initializeUiGrid]: (state, { payload: { rows, cols } }) => {

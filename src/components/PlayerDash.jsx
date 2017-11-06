@@ -26,7 +26,7 @@ const Container = styled.div`
 const PlayerDash = ({ color, total, used, getRectDirection }) => {
   return (
     <Container>
-      <Checker color={color} getRectDirection={getRectDirection} />
+      <Checker color={color} getRectDirection={getRectDirection} type="dash" />
       <div>
         <DashRow>
           <Float dir="left">Available Checkers</Float>

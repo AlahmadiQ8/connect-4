@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Motion, spring } from 'react-motion';
 
 import Checker from '../Checker';
 import Circle from './Circle';
 
 import { selectorPropTypes } from '../../redux/game-selectors';
-
-import { hwAcceleration } from '../../styles';
 
 const boardColor = '#2196F3';
 
@@ -30,11 +27,6 @@ const Section = styled.div`
   flex-wrap: wrap;
 `;
 
-const AnimatedChecker = styled(Checker)`
-  ${hwAcceleration}
-  transform: translate3d(${props => props.x}px, 0, 0);
-`;
-
 const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   if (!isInitialized) {
     rows = 6;
@@ -44,29 +36,21 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
 
-  const currGrid = isInitialized
-    ? grid
-    : [...Array(rows * cols)].map(_ => Math.floor(Math.random() * 2));
+  // const currGrid = isInitialized
+  //   ? grid
+  //   : [...Array(rows * cols)].map(_ => Math.floor(Math.random() * 2));
+  const currGrid = [...Array(rows * cols)].map(_ => Math.floor(Math.random() * 2));
 
   return (
     <Section boardWidth={boardWidth}>
       {currGrid.map((val, index) => (
         <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
           <Circle size={checkerSize} />
-          <Motion
-            style={{
-              x: spring(isInitialized ? 100 : 0),
-            }}
-          >
-            {({ x }) => (
-              <AnimatedChecker
-                x={x}
-                size={checkerSize}
-                color={val ? 'red' : 'yellow'}
-                gridIndex={index}
-              />
-            )}
-          </Motion>
+          <Checker
+            size={checkerSize}
+            color={val ? 'red' : 'yellow'}
+            gridIndex={index}
+          />
         </Box>
       ))}
     </Section>
