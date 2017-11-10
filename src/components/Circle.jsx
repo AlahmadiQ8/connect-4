@@ -6,8 +6,8 @@ const SvgAboslute = styled.svg`
   position: absolute;
 `;
 
-const Circle = ({ size, color, className }) => (
-  <SvgAboslute className={className} width={`${size}px`} height={`${size}px`} viewBox="0 0 100 100">
+const Circle = ({ size, color, className, circleRef }) => (
+  <SvgAboslute innerRef={circleRef} className={className} width={`${size}px`} height={`${size}px`} viewBox="0 0 100 100">
     <circle fill={color} cx="50" cy="50" r="50" />
   </SvgAboslute>
 );

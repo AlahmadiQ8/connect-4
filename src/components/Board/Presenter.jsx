@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { shuffleArray } from '../../utils';
+
 import Checker from '../Checker';
-import Circle from './Circle';
+import Circle from '../Circle';
 
 import { selectorPropTypes } from '../../redux/game-selectors';
 
@@ -36,10 +38,11 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
 
-  // const currGrid = isInitialized
-  //   ? grid
-  //   : [...Array(rows * cols)].map(_ => Math.floor(Math.random() * 2));
-  const currGrid = [...Array(rows * cols)].map(_ => Math.floor(Math.random() * 2));
+  const currGrid = [
+    ...Array(rows * cols / 2).fill(0),
+    ...Array(rows * cols / 2).fill(1),
+  ];
+  shuffleArray(currGrid);
 
   return (
     <Section boardWidth={boardWidth}>

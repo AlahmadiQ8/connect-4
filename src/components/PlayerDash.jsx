@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { totalSelector, CheckersAvailSelector } from '../redux/game-selectors';
 
 import * as styles from '../styles';
 import Checker from './Checker';
+import Circle from './Circle';
 
 const DashRow = styled.div`
   ${styles.clearFix} margin-top: 10px;
@@ -23,10 +26,10 @@ const Container = styled.div`
   margin-top: 100px;
 `;
 
-const PlayerDash = ({ color, total, used, getRectDirection }) => {
+const PlayerDash = ({ total, used, getRectDirection }) => {
   return (
     <Container>
-      <Checker color={color} getRectDirection={getRectDirection} type="dash" />
+      <Checker getRectDirection={getRectDirection} type="dash" />
       <div>
         <DashRow>
           <Float dir="left">Available Checkers</Float>
@@ -54,4 +57,10 @@ PlayerDash.defaultProps = {
   getRectDirection: '',
 };
 
-export default PlayerDash;
+const mapStateToProps = (state, props) => ({
+  total: totalSelector(state),
+  used: CheckersAvailSelector(state, props.playerId),
+});
+
+
+export default connect(mapStateToProps, null)(PlayerDash);

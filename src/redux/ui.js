@@ -8,6 +8,7 @@ export const { ui: actions } = createActions({
   ui: {
     SET_DASH_CHECKER_RECT: (rect, side) => ({ rect, side }),
     INITIALIZE_UI_GRID: (rows, cols) => ({ rows, cols }),
+    SAVE_SINGLE_BOX_POSITION: (rect, index) => ({ rect, index }),
   },
 });
 
@@ -56,6 +57,9 @@ export const reducer = handleActions(
     },
     [actions.initializeUiGrid]: (state, { payload: { rows, cols } }) => {
       return state.set('grid', List(times(rows * cols, () => null)));
+    },
+    [actions.saveSingleBoxPosition]: (state, { payload: { rect, index } }) => {
+      return state.setIn(['grid', index], Map(domRectToObject(rect)))
     },
   },
   defaultState

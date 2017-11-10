@@ -11,7 +11,7 @@ import Game from './Presenter';
 class GameContainer extends Component {
   componentDidMount() {
     const { rows, cols } = this.props;
-    this.props.initializeUiGrid(rows, cols);
+    // this.props.initializeUiGrid(rows, cols);
   }
 
   render() {

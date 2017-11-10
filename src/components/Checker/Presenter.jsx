@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 // import { fromJS } from 'immutable';
 import styled from 'styled-components';
+import Circle from '../Circle';
 
 import { hwAcceleration } from '../../styles';
 
@@ -45,7 +46,6 @@ const CheckerSvg = ({ color, size, className, checkerRef }) => (
 const AnimatedChecker = styled(CheckerSvg)`
   ${hwAcceleration}
   transform: translate3d(${props => props.x}px, ${props => props.y}px, 0);
-  opacity: ${props => props.opacity};
 `;
 
 const Checker = ({
@@ -59,7 +59,8 @@ const Checker = ({
   rightDashChecker,
   initialPosition,
 }) => {
-  const moveTo = color === 'red' ? rightDashChecker.toJS() : leftDashChecker.toJS();
+  const moveTo =
+    color === 'red' ? rightDashChecker.toJS() : leftDashChecker.toJS();
   const { left, top } = moveTo;
   const distanceX = left - initialPosition.left;
   const distanceY = top - initialPosition.top;
@@ -70,14 +71,12 @@ const Checker = ({
         style={{
           x: spring(shouldMove ? distanceX : 0),
           y: spring(shouldMove ? distanceY : 0),
-          opacity: !shouldMove ? 1 : spring(0),
         }}
       >
-        {({ x, y, opacity }) => (
+        {({ x, y }) => (
           <AnimatedChecker
             x={x}
             y={y}
-            opacity={opacity}
             size={size}
             color={color}
             className={className}
@@ -88,17 +87,21 @@ const Checker = ({
     );
   }
   return (
-    <CheckerSvg
-      size={size}
-      color={color}
+    <svg
+      ref={checkerRef}
+      style={{ opacity: 0 }}
       className={className}
-      checkerRef={checkerRef}
-    />
+      width={`${size}px`}
+      height={`${size}px`}
+      viewBox="0 0 100 100"
+    >
+      <circle fill="#fff" cx="50" cy="50" r="50" />
+    </svg>
   );
 };
 
 Checker.propTypes = {
-  color: PropTypes.oneOf(['red', 'yellow']).isRequired,
+  color: PropTypes.oneOf(['red', 'yellow']),
   size: PropTypes.number,
   className: PropTypes.string,
   type: PropTypes.oneOf(['ui', 'dash']).isRequired,

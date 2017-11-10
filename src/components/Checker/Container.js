@@ -16,7 +16,7 @@ class CheckerContainer extends Component {
   }
 
   componentDidMount() {
-    const { getRectDirection, setDashCheckerRect } = this.props;
+    const { getRectDirection, gridIndex, setDashCheckerRect, saveSingleBoxPosition } = this.props;
     if (getRectDirection) {
       setDashCheckerRect(
         this.checkerRef.getBoundingClientRect(),
@@ -26,6 +26,9 @@ class CheckerContainer extends Component {
     this.setState({ 
       initialPosition: domRectToObject(this.checkerRef.getBoundingClientRect()), 
     })
+    if (typeof gridIndex !== 'undefined') {
+      saveSingleBoxPosition(this.checkerRef.getBoundingClientRect(), gridIndex);
+    }
   }
 
   render() {

@@ -77,7 +77,7 @@ const Game = ({ rows, cols, isInitialized, initializeBoard }) => {
             <CloudTextBox />
             <PlayerDash
               color="yellow"
-              total={21}
+              playerId={0}
               used={15}
               getRectDirection="left"
             />
@@ -87,7 +87,7 @@ const Game = ({ rows, cols, isInitialized, initializeBoard }) => {
           <Section className="col d-flex flex-column align-items-center justify-content-end order-3">
             <PlayerDash
               color="red"
-              total={21}
+              playerId={1}
               used={15}
               getRectDirection="right"
             />
