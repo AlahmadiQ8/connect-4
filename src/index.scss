@@ -20,3 +20,25 @@ body {
     transform: translate(-50%, 0);
   }
 }
+
+.clearFix {
+  &::after {
+    display: block;
+    clear: both;
+    content: '';
+  } 
+}
+
+.center {
+  text-align: center;
+}
+
+.hwAcceleration {
+  perspective: 1000px;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.hide {
+  display: none;
+}

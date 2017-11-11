@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 // import { fromJS } from 'immutable';
-import styled from 'styled-components';
 import Circle from '../Circle';
-
-import { hwAcceleration } from '../../styles';
 
 const colors = {
   red: {
@@ -18,13 +15,14 @@ const colors = {
   },
 };
 
-const CheckerSvg = ({ color, size, className, checkerRef }) => (
+const CheckerSvg = ({ color, size, className, checkerRef, style }) => (
   <svg
     className={className}
     width={`${size}px`}
     height={`${size}px`}
     viewBox="0 0 200 200"
     ref={checkerRef}
+    style={{ ...style, zIndex: 100 }}
   >
     <title>Checker</title>
     <circle
@@ -42,11 +40,6 @@ const CheckerSvg = ({ color, size, className, checkerRef }) => (
     />
   </svg>
 );
-
-const AnimatedChecker = styled(CheckerSvg)`
-  ${hwAcceleration}
-  transform: translate3d(${props => props.x}px, ${props => props.y}px, 0);
-`;
 
 const Checker = ({
   color,
@@ -74,13 +67,16 @@ const Checker = ({
         }}
       >
         {({ x, y }) => (
-          <AnimatedChecker
+          <CheckerSvg
             x={x}
             y={y}
             size={size}
             color={color}
-            className={className}
+            className=".hwAcceleration"
             checkerRef={checkerRef}
+            style={{
+              transform: `translate3d(${x}px, ${y}px, 0)`,
+            }}
           />
         )}
       </Motion>
