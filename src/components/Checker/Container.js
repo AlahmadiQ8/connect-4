@@ -1,33 +1,35 @@
-import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { domRectToObject } from '../../utils';
 import { actions as uiActions } from '../../redux/ui';
-import { colsSelector, rowsSelector, isInitializedSelector } from '../../redux/game-selectors';
-import { leftDashCheckerSelector, rightDashCheckerSelector } from '../../redux/ui-selectors';
+import * as gameSelectors from '../../redux/game-selectors';
+import * as uiSelectors from '../../redux/ui-selectors';
 
 import Checker from './Presenter';
 
 class CheckerContainer extends Component {
-
   state = {
     initialPosition: {},
-  }
+  };
 
   componentDidMount() {
-    const { getRectDirection, gridIndex, setDashCheckerRect, saveSingleBoxPosition } = this.props;
+    const { getRectDirection, gridIndex, actions } = this.props;
     if (getRectDirection) {
-      setDashCheckerRect(
+      actions.setDashCheckerRect(
         this.checkerRef.getBoundingClientRect(),
         getRectDirection
       );
     }
-    this.setState({ 
-      initialPosition: domRectToObject(this.checkerRef.getBoundingClientRect()), 
-    })
+    this.setState({
+      initialPosition: domRectToObject(this.checkerRef.getBoundingClientRect()),
+    });
     if (typeof gridIndex !== 'undefined') {
-      saveSingleBoxPosition(this.checkerRef.getBoundingClientRect(), gridIndex);
+      actions.saveSingleBoxPosition(
+        this.checkerRef.getBoundingClientRect(),
+        gridIndex
+      );
     }
   }
 
@@ -46,9 +48,17 @@ class CheckerContainer extends Component {
 
 export default connect(
   state => ({
-    leftDashChecker: leftDashCheckerSelector(state),
-    rightDashChecker: rightDashCheckerSelector(state),
-    isInitialized: isInitializedSelector(state),
+    leftDashChecker: uiSelectors.leftDashCheckerSelector(state),
+    rightDashChecker: uiSelectors.rightDashCheckerSelector(state),
+    isInitialized: gameSelectors.isInitializedSelector(state),
   }),
-  dispatch => bindActionCreators(uiActions, dispatch)
+  dispatch => ({
+    actions: bindActionCreators(
+      {
+        saveSingleBoxPosition: uiActions.saveSingleBoxPosition,
+        setDashCheckerRect: uiActions.setDashCheckerRect,
+      },
+      dispatch
+    ),
+  })
 )(CheckerContainer);

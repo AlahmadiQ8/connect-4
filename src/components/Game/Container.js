@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actions as gameActions } from '../../redux/game';
-import { actions as uiActions } from '../../redux/ui';
-import selectors from '../../redux/game-selectors';
+import * as gameSelectors from '../../redux/game-selectors';
 
 import Game from './Presenter';
 
-class GameContainer extends Component {
-  componentDidMount() {
-    const { rows, cols } = this.props;
-    // this.props.initializeUiGrid(rows, cols);
-  }
+const mapStateToProps = state => ({
+  rows: gameSelectors.rowsSelector(state),
+  cols: gameSelectors.colsSelector(state),
+  isInitialized: gameSelectors.isInitializedSelector(state),
+});
 
-  render() {
-    return (
-      <Game {...this.props} />
-    );
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      initializeBoard: gameActions.initializeBoard,
+    },
+    dispatch
+  ),
+});
 
-export default connect(
-  selectors,
-  dispatch => bindActionCreators({ ...gameActions, ...uiActions }, dispatch)
-)(GameContainer);
-
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

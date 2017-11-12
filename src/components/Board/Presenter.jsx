@@ -1,33 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import { shuffleArray } from '../../utils';
 
 import Checker from '../Checker';
 import Circle from '../Circle';
 
-import { selectorPropTypes } from '../../redux/game-selectors';
-
 const boardColor = '#2196F3';
-
-const Box = styled.div`
-  background-color: ${props => props.color};
-  height: ${props => props.size};
-  width: ${props => props.size};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Section = styled.div`
-  width: ${props => props.boardWidth}px;
-  margin-top: 50px;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-wrap: wrap;
-`;
 
 const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   if (!isInitialized) {
@@ -44,28 +23,40 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   ];
   shuffleArray(currGrid);
 
+  const boxStyles = {
+    backgroundColor: boardColor,
+    height: `${checkerContainerSize}px`,
+    width: `${checkerContainerSize}px`,
+  };
+  const sectionStyles = {
+    width: `${boardWidth}px`,
+  };
+
   return (
-    <Section boardWidth={boardWidth}>
+    <div style={sectionStyles} className="Board-Section">
       {currGrid.map((val, index) => (
-        <Box key={index} color={boardColor} size={`${checkerContainerSize}px`}>
+        <div
+          key={index}
+          color={boardColor}
+          className="Board-Box"
+          size={`${checkerContainerSize}px`}
+          style={boxStyles}
+        >
           <Circle size={checkerSize} />
           <Checker
             size={checkerSize}
             color={val ? 'red' : 'yellow'}
             gridIndex={index}
           />
-        </Box>
+        </div>
       ))}
-    </Section>
+    </div>
   );
 };
 
-Board.propTypes = Object.assign(
-  {
-    checkerSize: PropTypes.number,
-  },
-  selectorPropTypes
-);
+Board.propTypes = {
+  checkerSize: PropTypes.number,
+};
 
 Board.defaultProps = {
   checkerSize: 50,

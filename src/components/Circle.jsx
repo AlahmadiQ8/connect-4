@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Circle = ({ size, color, className, circleRef }) => (
+const Circle = ({ size, color, className }) => (
   <svg
-    ref={circleRef}
     className={className}
     width={`${size}px`}
     height={`${size}px`}

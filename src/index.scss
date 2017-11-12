@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Boogaloo');
 
+$blue: #2196f3;
+
 body {
   padding: 0;
   font-family: 'Boogaloo', cursive;
@@ -29,10 +31,6 @@ body {
   } 
 }
 
-.center {
-  text-align: center;
-}
-
 .hwAcceleration {
   perspective: 1000px;
   transform: translate3d(0, 0, 0);
@@ -41,4 +39,102 @@ body {
 
 .hide {
   display: none;
+}
+
+.Game-h1 {
+  text-align: center;
+  font-size: 2.6rem;
+  color: #90caf9;
+  min-width: 585px;
+}
+
+.Game-section {
+  height: 718px;
+}
+
+.Game-BoardSection {
+  @extend .Game-section;
+  min-width: 600px;
+}
+
+.Game-Button {
+  color: #f48fb1;
+  animation: jiggle 0.75s infinite reverse linear;
+  display: inline-block;
+  transition: color 0.25s;
+  cursor: pointer;
+  &:hover {
+    color: #f06292;
+  }
+}
+
+
+
+.Board-Box {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.Board-Section {
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.PlayerDash-DashRow {
+  @extend .clearFix;
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: $blue;
+  border-bottom: 1px solid $blue;
+}
+
+.PlayerDash-Container {
+  text-align: center;
+  max-width: 175px;
+  min-width: 150px;
+  margin-top: 100px; 
+}
+
+.CloudText-svg {
+  cursor: default;
+  animation: pulse 1s infinite alternate linear;
+}
+
+.CloudText-Container {
+  text-align: center;
+  max-width: 200px;
+  font-size: 18px;
+}
+
+.CloudText-Text {
+  margin-top: 15px;
+  color: #f8bbd0;
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  } 
 }

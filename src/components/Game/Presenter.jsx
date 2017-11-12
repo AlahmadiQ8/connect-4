@@ -1,58 +1,18 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
 import { TransitionMotion, spring } from 'react-motion';
-
-import { selectorPropTypes } from '../../redux/game-selectors';
 
 import Board from '../Board';
 import PlayerDash from '../PlayerDash';
 import CloudTextBox from '../CloudTextBox';
-import * as styles from '../../styles';
 
-const H1 = styled.h1`
-  text-align: center;
-  font-size: 2.6rem;
-  color: #90caf9;
-  min-width: 585px;
-`;
-
-const Section = styled.section`height: 718px;`;
-
-const BoardSection = styled(Section)`
-  min-width: 600px;
-`;
-
-const jiggleAnimation = keyframes`
-  0% {
-    transform: rotate(5deg);
-  }
-  50% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(5deg);
-  }
-`;
-
-const Button = styled.span`
-  color: #f48fb1;
-  animation: ${jiggleAnimation} 0.75s infinite reverse linear;
-  display: inline-block;
-  transition: color 0.25s;
-  cursor: pointer;
-  &:hover {
-    color: #f06292;
-  }
-`;
-
-const Game = ({ rows, cols, isInitialized, initializeBoard }) => {
+const Game = ({ rows, cols, isInitialized, actions }) => {
   const transitionStyles = !isInitialized
     ? [{ key: '0', style: { opacity: 1 } }]
     : [];
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <BoardSection className="col d-flex flex-column align-items-center justify-content-end order-2">
+        <section className="Game-BoardSection col d-flex flex-column align-items-center justify-content-end order-2">
           <TransitionMotion
             willLeave={() => ({ opacity: spring(0) })}
             styles={transitionStyles}
@@ -60,44 +20,44 @@ const Game = ({ rows, cols, isInitialized, initializeBoard }) => {
             {configs => (
               <div>
                 {configs.map(config => (
-                  <H1 key={config.key} style={config.style}>
+                  <h1 className="Game-h1" key={config.key} style={config.style}>
                     Welcome! To start a new game, click{' '}
-                    <Button onClick={() => initializeBoard(rows, cols)}>
+                    <span
+                      role="button"
+                      className="Game-Button"
+                      onClick={() => actions.initializeBoard(rows, cols)}
+                    >
                       play
-                    </Button>
-                  </H1>
+                    </span>
+                  </h1>
                 ))}
               </div>
             )}
           </TransitionMotion>
           <Board rows={rows} cols={cols} />
-        </BoardSection>
+        </section>
         {isInitialized && (
-          <Section className="col d-flex flex-column align-items-center justify-content-end order-1">
+          <section className="Game-section col d-flex flex-column align-items-center justify-content-end order-1">
             <CloudTextBox />
             <PlayerDash
               color="yellow"
               playerId={0}
               used={15}
-              getRectDirection="left"
             />
-          </Section>
+          </section>
         )}
         {isInitialized && (
-          <Section className="col d-flex flex-column align-items-center justify-content-end order-3">
+          <section className="col d-flex flex-column align-items-center justify-content-end order-3">
             <PlayerDash
               color="red"
               playerId={1}
               used={15}
-              getRectDirection="right"
             />
-          </Section>
+          </section>
         )}
       </div>
     </div>
   );
 };
-
-Game.propTypes = selectorPropTypes;
 
 export default Game;

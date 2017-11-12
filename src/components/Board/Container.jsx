@@ -1,10 +1,13 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Board from './Presenter';
-import selectors from '../../redux/game-selectors';
-import { actions } from '../../redux/ui';
+import * as gameSelectors from '../../redux/game-selectors';
 
-export default connect(selectors, dispatch =>
-  bindActionCreators(actions, dispatch)
-)(Board);
+const mapStateToProps = state => ({
+  isInitialized: gameSelectors.isInitializedSelector(state),
+  grid: gameSelectors.gridSelector(state),
+  rows: gameSelectors.rowsSelector(state),
+  cols: gameSelectors.colsSelector(state),
+});
+
+export default connect(mapStateToProps, null)(Board);

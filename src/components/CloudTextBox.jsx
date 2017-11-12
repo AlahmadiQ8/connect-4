@@ -1,41 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-
-import * as styles from '../styles';
-
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
-
-const Svg = styled.svg`
-  cursor: default;
-  animation: ${pulse} 1s infinite alternate linear;
-`;
-
-const Container = styled.div`
-  ${styles.center}
-  max-width: 200px;
-  font-size: 18px;
-`;
-
-const Text = styled.div`
-  margin-top: 15px;
-  color: #f8bbd0;
-`;
 
 const CloudTextBox = props => {
   return (
-    <Container>
-      <Svg
+    <div className="CloudText-Container">
+      <svg
+        className="CloudText-svg"
         width="155"
         height="103"
         viewBox="0 0 155 103"
@@ -57,11 +26,11 @@ const CloudTextBox = props => {
             strokeWidth="3"
           />
         </g>
-      </Svg>
-      <Text>
+      </svg>
+      <div className="CloudText-Text">
         Drag and drop a checker<br />to the board
-      </Text>
-    </Container>
+      </div>
+    </div>
   );
 };
 

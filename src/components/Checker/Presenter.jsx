@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-// import { fromJS } from 'immutable';
-import Circle from '../Circle';
 
 const colors = {
   red: {
@@ -97,7 +95,7 @@ const Checker = ({
 };
 
 Checker.propTypes = {
-  color: PropTypes.oneOf(['red', 'yellow']),
+  color: PropTypes.oneOf(['red', 'yellow', 'white']),
   size: PropTypes.number,
   className: PropTypes.string,
   type: PropTypes.oneOf(['ui', 'dash']).isRequired,
@@ -107,6 +105,7 @@ Checker.propTypes = {
 };
 
 Checker.defaultProps = {
+  color: 'white',
   size: 50,
   className: '',
   type: 'ui',
