@@ -7,7 +7,7 @@ import { actions as uiActions } from '../../redux/ui';
 import * as gameSelectors from '../../redux/game-selectors';
 import * as uiSelectors from '../../redux/ui-selectors';
 
-import Checker from './Presenter';
+import Checker from './Checker';
 
 class CheckerContainer extends Component {
   state = {

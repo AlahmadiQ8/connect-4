@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actions as gameActions } from '../../redux/game';
 import * as gameSelectors from '../../redux/game-selectors';
 
-import Game from './Presenter';
+import Game from './Game';
 
 const mapStateToProps = state => ({
   rows: gameSelectors.rowsSelector(state),

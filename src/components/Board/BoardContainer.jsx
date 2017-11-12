@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Board from './Presenter';
+import Board from './Board';
 import * as gameSelectors from '../../redux/game-selectors';
 
 const mapStateToProps = state => ({
