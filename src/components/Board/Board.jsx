@@ -3,16 +3,10 @@ import PropTypes from 'prop-types';
 
 import { shuffleArray } from '../../utils';
 
+import BoardSquare from '../BoardSquare';
 import Checker from '../Checker';
-import Circle from '../Circle';
-
-const boardColor = '#2196F3';
 
 const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
-  if (!isInitialized) {
-    rows = 6;
-    cols = 7;
-  }
 
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
@@ -23,11 +17,6 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   ];
   shuffleArray(currGrid);
 
-  const boxStyles = {
-    backgroundColor: boardColor,
-    height: `${checkerContainerSize}px`,
-    width: `${checkerContainerSize}px`,
-  };
   const sectionStyles = {
     width: `${boardWidth}px`,
   };
@@ -35,27 +24,28 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
   return (
     <div style={sectionStyles} className="Board-Section">
       {currGrid.map((val, index) => (
-        <div
+        <BoardSquare
+          checkerSize={checkerSize}
+          squareSize={checkerContainerSize}
           key={index}
-          color={boardColor}
-          className="Board-Box"
-          size={`${checkerContainerSize}px`}
-          style={boxStyles}
+          index={index}
         >
-          <Circle size={checkerSize} />
           <Checker
             size={checkerSize}
             color={val ? 'red' : 'yellow'}
             gridIndex={index}
           />
-        </div>
+        </BoardSquare>
       ))}
     </div>
   );
 };
 
 Board.propTypes = {
+  isInitialized: PropTypes.bool.isRequired,
   checkerSize: PropTypes.number,
+  rows: PropTypes.number,
+  cols: PropTypes.number,
 };
 
 Board.defaultProps = {

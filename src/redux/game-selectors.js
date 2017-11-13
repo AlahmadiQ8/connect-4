@@ -6,6 +6,8 @@ export const rowsSelector = state => state.getIn(['game', 'rows']);
 export const playersSelector = state => state.getIn(['game', 'players']);
 export const currentPlayerIndexSelector = state =>
   state.getIn(['game', 'currentPlayerIndex']);
+export const checkersAvailSelector = (state, props) =>
+  state.getIn(['game', 'players', props, 'availableCheckers']);
 
 export const isInitializedSelector = createSelector(
   gridSelector,
@@ -17,6 +19,8 @@ export const totalSelector = createSelector(
   (rows, cols) => rows * cols / 2
 );
 
-export const checkersAvailSelector = (state, props) => (
-  state.getIn(['game', 'players', props, 'availableCheckers'])
+export const colIndexSelector = createSelector(
+  colsSelector,
+  (_, props) => props.index,
+  (cols, index) => index % cols
 );

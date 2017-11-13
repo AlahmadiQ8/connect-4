@@ -15,7 +15,7 @@ export const { game: actions } = createActions({
   game: {
     INITIALIZE_BOARD: (rows, cols) => ({ rows, cols }),
     // VALID_INDEXES: undefined,
-    INSERT_CHECKER: (playerIndex, colIndex) => ({ playerIndex, colIndex }),
+    INSERT_CHECKER: colIndex => ({ colIndex }),
     CHECK_WINNER: undefined,
     TOGGLE_PLAYER: undefined,
   },

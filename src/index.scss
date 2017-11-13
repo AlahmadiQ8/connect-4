@@ -68,20 +68,18 @@ body {
   }
 }
 
-
-
-.Board-Box {
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-}
-
 .Board-Section {
   margin-top: 50px;
   margin-right: auto;
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
+}
+
+.BoardSquare-box {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
 }
 
 .PlayerDash-DashRow {

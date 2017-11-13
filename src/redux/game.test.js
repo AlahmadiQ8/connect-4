@@ -50,17 +50,17 @@ test('togglePlayer reducer should toggle player', () => {
 
 test('insertChecker reducer should insert checker with column has empty slots', () => {
   let result = reducer(initialState, actions.initializeBoard(6, 7));
-  result = reducer(result, actions.insertChecker(0, 0));
-  result = reducer(result, actions.insertChecker(0, 1));
-  result = reducer(result, actions.insertChecker(0, 1));
-  result = reducer(result, actions.insertChecker(0, 2));
-  result = reducer(result, actions.insertChecker(0, 3));
-  result = reducer(result, actions.insertChecker(0, 3));
-  result = reducer(result, actions.insertChecker(0, 3));
-  result = reducer(result, actions.insertChecker(0, 4));
-  result = reducer(result, actions.insertChecker(0, 5));
-  result = reducer(result, actions.insertChecker(0, 6));
-  result = reducer(result, actions.insertChecker(0, 6));
+  result = reducer(result, actions.insertChecker(0));
+  result = reducer(result, actions.insertChecker(1));
+  result = reducer(result, actions.insertChecker(1));
+  result = reducer(result, actions.insertChecker(2));
+  result = reducer(result, actions.insertChecker(3));
+  result = reducer(result, actions.insertChecker(3));
+  result = reducer(result, actions.insertChecker(3));
+  result = reducer(result, actions.insertChecker(4));
+  result = reducer(result, actions.insertChecker(5));
+  result = reducer(result, actions.insertChecker(6));
+  result = reducer(result, actions.insertChecker(6));
   let expextedGrid = List(times(34, () => null)).concat(
     List(times(8, () => 0))
   );
@@ -76,7 +76,7 @@ test('insertChecker reducer should insert checker with column has empty slots', 
 test('insertChecker reducer should not alter state if insertChecker is applied on full column', () => {
   let result = reducer(initialState, actions.initializeBoard(6, 7));
   times(100).forEach(i => {
-    result = reducer(result, actions.insertChecker(0, 0));
+    result = reducer(result, actions.insertChecker(0));
   });
   expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
   let expextedGrid = List(times(42, () => null));
