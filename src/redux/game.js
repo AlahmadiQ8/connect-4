@@ -49,11 +49,8 @@ export const reducer = handleActions(
         .setIn(['players', 0, 'availableCheckers'], rows * cols / 2)
         .setIn(['players', 1, 'availableCheckers'], rows * cols / 2),
 
-    [actions.togglePlayer]: state => {
-      const current = state.get('currentPlayerIndex');
-      return state.set('currentPlayerIndex', 1 - current);
-    },
-
+    [actions.togglePlayer]: state =>
+      state.update('currentPlayerIndex', val => 1 - val),
     [actions.insertChecker]: (state, { payload: { colIndex } }) => {
       const curPlayerIndex = state.get('currentPlayerIndex');
       return compose(
@@ -67,6 +64,7 @@ export const reducer = handleActions(
                 ['players', curPlayerIndex, 'availableCheckers'],
                 val => val - 1
               )
+              .update('currentPlayerIndex', val => 1 - val)
         ),
         getValidIndexInCol(
           state.get('grid'),
