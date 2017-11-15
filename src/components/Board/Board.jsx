@@ -1,21 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { shuffleArray } from '../../utils';
-
 import BoardSquare from '../BoardSquare';
 import Checker from '../Checker';
 
 const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
-
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
-
-  const currGrid = [
-    ...Array(rows * cols / 2).fill(0),
-    ...Array(rows * cols / 2).fill(1),
-  ];
-  shuffleArray(currGrid);
 
   const sectionStyles = {
     width: `${boardWidth}px`,
@@ -23,18 +14,22 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
 
   return (
     <div style={sectionStyles} className="Board-Section">
-      {currGrid.map((val, index) => (
+      {grid.map((val, index) => (
         <BoardSquare
           checkerSize={checkerSize}
           squareSize={checkerContainerSize}
           key={index}
           index={index}
         >
-          <Checker
-            size={checkerSize}
-            color={val ? 'red' : 'yellow'}
-            gridIndex={index}
-          />
+          {val !== null ? (
+            <Checker
+              size={checkerSize}
+              color={val ? 'red' : 'yellow'}
+              gridIndex={index}
+            />
+          ) : (
+            <div />
+          )}
         </BoardSquare>
       ))}
     </div>

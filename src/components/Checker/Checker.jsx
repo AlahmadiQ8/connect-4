@@ -64,19 +64,21 @@ const Checker = ({
           y: spring(shouldMove ? distanceY : 0),
         }}
       >
-        {({ x, y }) => (
-          <CheckerSvg
-            x={x}
-            y={y}
-            size={size}
-            color={color}
-            className=".hwAcceleration"
-            checkerRef={checkerRef}
-            style={{
-              transform: `translate3d(${x}px, ${y}px, 0)`,
-            }}
-          />
-        )}
+        {({ x, y }) => {
+          return (
+            <CheckerSvg
+              x={x}
+              y={y}
+              size={size}
+              color={color}
+              className=".hwAcceleration"
+              checkerRef={checkerRef}
+              style={{
+                transform: `translate3d(${x}px, ${y}px, 0)`,
+              }}
+            />
+          );
+        }}
       </Motion>
     );
   }

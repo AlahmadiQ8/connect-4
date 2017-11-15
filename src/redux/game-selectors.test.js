@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import selectors, { isInitializedSelector } from './game-selectors';
+import { isInitializedSelector } from './game-selectors';
 
 const gameState = fromJS({ game: {} });
 
@@ -17,21 +17,3 @@ test('isInitializedSelector returns false when grid size = 0', () => {
   expect(result).toBe(false);
 });
 
-test('selectors returns the grid, row, and col', () => {
-  const state = gameState.set(
-    'game',
-    fromJS({
-      grid: ['test'],
-      cols: 6,
-      rows: 7,
-    })
-  );
-  const [grid, rows, cols] = [
-    selectors(state).grid.toJS(),
-    selectors(state).rows,
-    selectors(state).cols,
-  ];
-  expect(grid).toEqual(['test']);
-  expect(rows).toEqual(7);
-  expect(cols).toEqual(6);
-});

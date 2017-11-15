@@ -3,6 +3,7 @@ import store, { rootReducer } from './index';
 
 const expected = fromJS({
   ui: {
+    isAnimating: false,
     leftDashChecker: {
       top: 0,
       right: 0,

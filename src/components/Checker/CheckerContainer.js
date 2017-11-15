@@ -46,19 +46,22 @@ class CheckerContainer extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    leftDashChecker: uiSelectors.leftDashCheckerSelector(state),
-    rightDashChecker: uiSelectors.rightDashCheckerSelector(state),
-    isInitialized: gameSelectors.isInitializedSelector(state),
-  }),
-  dispatch => ({
-    actions: bindActionCreators(
-      {
-        saveSingleBoxPosition: uiActions.saveSingleBoxPosition,
-        setDashCheckerRect: uiActions.setDashCheckerRect,
-      },
-      dispatch
-    ),
-  })
-)(CheckerContainer);
+const mapStateToProps = (state, props) => ({
+  leftDashChecker: uiSelectors.leftDashCheckerSelector(state),
+  rightDashChecker: uiSelectors.rightDashCheckerSelector(state),
+  isInitialized: gameSelectors.isInitializedSelector(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      saveSingleBoxPosition: uiActions.saveSingleBoxPosition,
+      setDashCheckerRect: uiActions.setDashCheckerRect,
+    },
+    dispatch
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  CheckerContainer
+);
