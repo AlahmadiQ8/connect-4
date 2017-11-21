@@ -28,14 +28,21 @@ class BoardContainer extends Component {
     const { isInitialized, actions } = this.props;
     if (!isInitialized && nextProps.isInitialized) {
       actions.startAnimating();
+      
+      // since react-motion is not time based, we hard code a 1 second delay to 
+      // indicate trigger ANIMATE_COMPLETE action. 
       setTimeout(() => { actions.animatingComplete() }, 1000);
     }
-    if (this.props.isAnimating && !nextProps.isAnimating && nextProps.isInitialized) {
+
+    const didStopAnimating = this.props.isAnimating && !nextProps.isAnimating;
+    const noLongerAnimating = !this.props.isAnimating && !nextProps.isAnimating && this.props.isInitialized;
+
+    if (didStopAnimating || noLongerAnimating) {
       this.setState({ curGrid: nextProps.grid })
     }
-    if (!this.props.isAnimating && !nextProps.isAnimating && this.props.isInitialized) {
-      this.setState({ curGrid: nextProps.grid })
-    }
+    // if (!this.props.isAnimating && !nextProps.isAnimating && this.props.isInitialized) {
+    //   this.setState({ curGrid: nextProps.grid })
+    // }
   }
 
   render() {

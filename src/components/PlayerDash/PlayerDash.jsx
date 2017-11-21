@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as gameSelectors from '../redux/game-selectors';
+import * as gameSelectors from '../../redux/game-selectors';
 
-import Checker from './Checker';
+import Checker from '../Checker';
 
-const PlayerDash = ({ total, used, color }) => {
+const PlayerDash = ({ total, used, color, showDash }) => {
   const getRectDirection = color === 'yellow' ? 'left' : 'right';
   const floatStyle = dir => ({ float: dir });
   return (
     <div className="PlayerDash-Container">
-      <Checker getRectDirection={getRectDirection} type="dash" />
+      <Checker getRectDirection={getRectDirection} type="dash" color={showDash ? color : 'white'} />
       <div>
         <div className="PlayerDash-DashRow">
           <span style={floatStyle('left')}>Available Checkers</span>

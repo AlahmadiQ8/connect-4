@@ -11,6 +11,10 @@ const colors = {
     primary: '#FFEB3B',
     secondary: '#FFF59D',
   },
+  white: {
+    primary: '#FFFFFF',
+    secondary: '#FFFFFF',
+  },
 };
 
 const CheckerSvg = ({ color, size, className, checkerRef, style }) => (
@@ -42,7 +46,6 @@ const CheckerSvg = ({ color, size, className, checkerRef, style }) => (
 const Checker = ({
   color,
   size,
-  className,
   type,
   checkerRef,
   isInitialized,
@@ -82,28 +85,29 @@ const Checker = ({
       </Motion>
     );
   }
-  return (
-    <svg
-      ref={checkerRef}
-      style={{ opacity: 0 }}
-      className={className}
-      width={`${size}px`}
-      height={`${size}px`}
-      viewBox="0 0 100 100"
-    >
-      <circle fill="#fff" cx="50" cy="50" r="50" />
-    </svg>
-  );
+  return <CheckerSvg checkerRef={checkerRef} size={size} color={color} />;
 };
+
+// const recBoundaryPropTypes = {
+//   top: PropTypes.num,
+//   right: PropTypes.num,
+//   bottom: PropTypes.num,
+//   left: PropTypes.num,
+//   width: PropTypes.num,
+//   height: PropTypes.num,
+//   x: PropTypes.num,
+//   y: PropTypes.num,
+// };
 
 Checker.propTypes = {
   color: PropTypes.oneOf(['red', 'yellow', 'white']),
   size: PropTypes.number,
-  className: PropTypes.string,
   type: PropTypes.oneOf(['ui', 'dash']).isRequired,
-  setDashCheckerRect: PropTypes.func,
-  getRectDirection: PropTypes.string,
-  gridIndex: PropTypes.number,
+  checkerRef: PropTypes.func.isRequired,
+  isInitialized: PropTypes.bool.isRequired,
+  // leftDashChecker: recBoundaryPropTypes,
+  // rightDashChecker: recBoundaryPropTypes,
+  // initialPosition: recBoundaryPropTypes.isRequired,
 };
 
 Checker.defaultProps = {
@@ -111,9 +115,6 @@ Checker.defaultProps = {
   size: 50,
   className: '',
   type: 'ui',
-  setDashCheckerRect: () => {},
-  getRectDirection: '',
-  gridIndex: -1,
 };
 
 export default Checker;
