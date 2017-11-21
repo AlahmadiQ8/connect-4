@@ -40,9 +40,6 @@ class BoardContainer extends Component {
     if (didStopAnimating || noLongerAnimating) {
       this.setState({ curGrid: nextProps.grid })
     }
-    // if (!this.props.isAnimating && !nextProps.isAnimating && this.props.isInitialized) {
-    //   this.setState({ curGrid: nextProps.grid })
-    // }
   }
 
   render() {
