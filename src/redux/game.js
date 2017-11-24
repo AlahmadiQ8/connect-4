@@ -1,6 +1,5 @@
 import { fromJS, List } from 'immutable';
 import times from 'lodash/times';
-import { compose, ifElse } from 'ramda';
 import { createActions, handleActions } from 'redux-actions';
 
 import {
@@ -53,25 +52,22 @@ export const reducer = handleActions(
       state.update('currentPlayerIndex', val => 1 - val),
     [actions.insertChecker]: (state, { payload: { colIndex } }) => {
       const curPlayerIndex = state.get('currentPlayerIndex');
-      return compose(
-        ifElse(
-          i => i < 0,
-          () => state,
-          index =>
-            state
-              .setIn(['grid', index], curPlayerIndex)
-              .updateIn(
-                ['players', curPlayerIndex, 'availableCheckers'],
-                val => val - 1
-              )
-              .update('currentPlayerIndex', val => 1 - val)
-        ),
-        getValidIndexInCol(
-          state.get('grid'),
-          state.get('rows'),
-          state.get('cols')
+      const index = getValidIndexInCol(
+        state.get('grid'),
+        state.get('rows'),
+        state.get('cols'),
+        colIndex
+      );
+      if (index < 0) {
+        return state;
+      }
+      return state
+        .setIn(['grid', index], curPlayerIndex)
+        .updateIn(
+          ['players', curPlayerIndex, 'availableCheckers'],
+          val => val - 1
         )
-      )(colIndex);
+        .update('currentPlayerIndex', val => 1 - val);
     },
 
     [actions.checkWinner]: state => {

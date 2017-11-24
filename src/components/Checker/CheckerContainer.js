@@ -15,22 +15,10 @@ class CheckerContainer extends Component {
   };
 
   componentDidMount() {
-    const { getRectDirection, gridIndex, actions } = this.props;
-    if (getRectDirection) {
-      actions.setDashCheckerRect(
-        this.checkerRef.getBoundingClientRect(),
-        getRectDirection
-      );
-    }
+    const { gridIndex, actions } = this.props;
     this.setState({
       initialPosition: domRectToObject(this.checkerRef.getBoundingClientRect()),
     });
-    if (typeof gridIndex !== 'undefined') {
-      actions.saveSingleBoxPosition(
-        this.checkerRef.getBoundingClientRect(),
-        gridIndex
-      );
-    }
   }
 
   render() {
@@ -52,16 +40,6 @@ const mapStateToProps = (state, props) => ({
   isInitialized: gameSelectors.isInitializedSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      saveSingleBoxPosition: uiActions.saveSingleBoxPosition,
-      setDashCheckerRect: uiActions.setDashCheckerRect,
-    },
-    dispatch
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(mapStateToProps, null)(
   CheckerContainer
 );

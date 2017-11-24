@@ -1,5 +1,4 @@
 import range from 'lodash/range';
-import { curry } from 'ramda';
 // import leftPad from 'left-pad';
 import Immutable from 'immutable';
 
@@ -17,7 +16,7 @@ export const getColIndexes = (rows, cols, colIndex) => {
   return range(colIndex, cols * (rows - 1) + colIndex + 1, cols);
 };
 
-export const getValidIndexInCol = curry((grid, rows, cols, colIndex) => {
+export const getValidIndexInCol = (grid, rows, cols, colIndex) => {
   const indexes = getColIndexes(rows, cols, colIndex);
   for (let i = indexes.length; i >= 0; i -= 1) {
     if (grid.get(indexes[i]) === null) {
@@ -25,7 +24,7 @@ export const getValidIndexInCol = curry((grid, rows, cols, colIndex) => {
     }
   }
   return -1;
-});
+};
 
 export const getValidIndexes = (grid, rows, cols) =>
   range(0, cols).reduce((acc, cur) => {

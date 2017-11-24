@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TransitionMotion, spring } from 'react-motion';
 
 import Board from '../Board';
@@ -39,25 +40,26 @@ const Game = ({ rows, cols, isInitialized, actions }) => {
         {isInitialized && (
           <section className="Game-section col d-flex flex-column align-items-center justify-content-end order-1">
             <CloudTextBox />
-            <PlayerDash
-              color="yellow"
-              playerId={0}
-              used={15}
-            />
+            <PlayerDash color="yellow" playerId={0} used={15} />
           </section>
         )}
         {isInitialized && (
           <section className="col d-flex flex-column align-items-center justify-content-end order-3">
-            <PlayerDash
-              color="red"
-              playerId={1}
-              used={15}
-            />
+            <PlayerDash color="red" playerId={1} used={15} />
           </section>
         )}
       </div>
     </div>
   );
+};
+
+Game.propTypes = {
+  rows: PropTypes.number.isRequired,
+  cols: PropTypes.number.isRequired,
+  isInitialized: PropTypes.bool.isRequired,
+  actions: PropTypes.shape({
+    initializeBoard: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Game;

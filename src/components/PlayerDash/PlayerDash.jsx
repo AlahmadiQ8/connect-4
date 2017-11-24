@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as gameSelectors from '../../redux/game-selectors';
 
-import Checker from '../Checker';
+import { CheckerDraggable } from '../Checker';
 
 const PlayerDash = ({ total, used, color, showDash }) => {
   const getRectDirection = color === 'yellow' ? 'left' : 'right';
   const floatStyle = dir => ({ float: dir });
   return (
     <div className="PlayerDash-Container">
-      <Checker getRectDirection={getRectDirection} type="dash" color={showDash ? color : 'white'} />
+      <CheckerDraggable
+        getRectDirection={getRectDirection}
+        color={showDash ? color : 'white'}
+      />
       <div>
         <div className="PlayerDash-DashRow">
           <span style={floatStyle('left')}>Available Checkers</span>
@@ -29,18 +30,13 @@ PlayerDash.propTypes = {
   color: PropTypes.oneOf(['red', 'yellow']).isRequired,
   total: PropTypes.number,
   used: PropTypes.number,
-  getRectDirection: PropTypes.string,
+  showDash: PropTypes.bool,
 };
 
 PlayerDash.defaultProps = {
   total: 0,
   used: 0,
-  getRectDirection: '',
+  showDash: true,
 };
 
-const mapStateToProps = (state, props) => ({
-  total: gameSelectors.totalSelector(state),
-  used: gameSelectors.checkersAvailSelector(state, props.playerId),
-});
-
-export default connect(mapStateToProps, null)(PlayerDash);
+export default PlayerDash;

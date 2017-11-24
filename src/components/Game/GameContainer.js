@@ -1,5 +1,7 @@
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 import { actions as gameActions } from '../../redux/game';
 import * as gameSelectors from '../../redux/game-selectors';
 
@@ -20,4 +22,7 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default compose(
+  DragDropContext(HTML5Backend),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Game);

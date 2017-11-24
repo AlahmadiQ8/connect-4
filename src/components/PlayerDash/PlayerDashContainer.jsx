@@ -11,8 +11,10 @@ const finishedAnimatingSelector = createSelector(
   (isInitialized, isAnimating) => isInitialized && !isAnimating
 );
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   showDash: finishedAnimatingSelector(state),
+  total: gameSelectors.totalSelector(state),
+  used: gameSelectors.checkersAvailSelector(state, props.playerId),
 });
 
 export default connect(mapStateToProps, null)(PlayerDash);

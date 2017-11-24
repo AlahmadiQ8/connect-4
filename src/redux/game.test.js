@@ -3,7 +3,7 @@ import times from 'lodash/times';
 import range from 'lodash/range';
 
 import { reducer, actions } from './game';
-import { printGrid } from './utils';
+// import { printGrid } from './utils';
 
 const initialState = fromJS({
   grid: [],
@@ -52,25 +52,32 @@ test('insertChecker reducer should insert checker with column has empty slots', 
   let result = reducer(initialState, actions.initializeBoard(6, 7));
   result = reducer(result, actions.insertChecker(0));
   result = reducer(result, actions.insertChecker(1));
-  result = reducer(result, actions.insertChecker(1));
   result = reducer(result, actions.insertChecker(2));
-  result = reducer(result, actions.insertChecker(3));
-  result = reducer(result, actions.insertChecker(3));
   result = reducer(result, actions.insertChecker(3));
   result = reducer(result, actions.insertChecker(4));
   result = reducer(result, actions.insertChecker(5));
   result = reducer(result, actions.insertChecker(6));
+  result = reducer(result, actions.insertChecker(1));
+  result = reducer(result, actions.insertChecker(3));
+  result = reducer(result, actions.insertChecker(3));
   result = reducer(result, actions.insertChecker(6));
-  let expextedGrid = List(times(34, () => null)).concat(
-    List(times(8, () => 0))
+  let playerIndex = 0;
+  let expectedGrid = List(times(34, () => null)).concat(
+    List(
+      times(8, () => {
+        playerIndex = 1 - playerIndex;
+        return playerIndex;
+      })
+    )
   );
-  expextedGrid = expextedGrid.set(31, 0);
-  expextedGrid = expextedGrid.set(24, 0);
-  expextedGrid = expextedGrid.set(29, 0);
+  expectedGrid = expectedGrid.set(31, 0);
+  expectedGrid = expectedGrid.set(24, 1);
+  expectedGrid = expectedGrid.set(29, 1);
+  expectedGrid = expectedGrid.set(34, 0);
   // for debuging only
   // printGrid(result.get('grid'), result.get('rows'), result.get('cols'));
-  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(10);
-  expect(result.get('grid').equals(expextedGrid)).toBe(true);
+  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
+  expect(result.get('grid').equals(expectedGrid)).toBe(true);
 });
 
 test('insertChecker reducer should not alter state if insertChecker is applied on full column', () => {
@@ -78,15 +85,18 @@ test('insertChecker reducer should not alter state if insertChecker is applied o
   times(100).forEach(i => {
     result = reducer(result, actions.insertChecker(0));
   });
-  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
-  let expextedGrid = List(times(42, () => null));
+  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(18);
+  expect(result.getIn(['players', 1, 'availableCheckers'])).toBe(18);
+  let expectedGrid = List(times(42, () => null));
+  let playerIndex = 1;
   range(0, 36, 7).forEach(i => {
-    expextedGrid = expextedGrid.set(i, 0);
+    expectedGrid = expectedGrid.set(i, playerIndex);
+    playerIndex = 1 - playerIndex; // alternate between 1 and 0
   });
   // for debuging only
   // printGrid(result.get('grid'), result.get('rows'), result.get('cols'));
-  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(15);
-  expect(result.get('grid').equals(expextedGrid)).toBe(true);
+  expect(result.getIn(['players', 0, 'availableCheckers'])).toBe(18);
+  expect(result.get('grid').equals(expectedGrid)).toBe(true);
 });
 
 test('checkWinner reducer should return true when there is a horizontal win', () => {
