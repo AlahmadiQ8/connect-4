@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
+import isNil from 'lodash/isNil';
 
 import CheckerSvg from './CheckerSvg';
+
+const scaleRatio = 1.1;
+
+const cancelParentScaleTransitionStyle = {
+  transformOrigin: 'bottom',
+  transition: 'transform 0.2s ease-out',
+};
 
 const Checker = ({
   color,
@@ -12,6 +20,7 @@ const Checker = ({
   leftDashChecker,
   rightDashChecker,
   initialPosition,
+  isColumnHovered,
 }) => {
   const moveTo =
     color === 'red' ? rightDashChecker : leftDashChecker;
@@ -24,9 +33,12 @@ const Checker = ({
       style={{
         x: spring(shouldMove ? distanceX : 0),
         y: spring(shouldMove ? distanceY : 0),
+        scaleVal: !isNil(isColumnHovered) ? 1 / scaleRatio : 1,
       }}
     >
-      {({ x, y }) => {
+      {({ x, y, scaleVal }) => {
+        x = Number.isNaN(x) ? 0 : x;
+        y = Number.isNaN(y) ? 0 : y;
         return (
           <CheckerSvg
             x={x}
@@ -36,7 +48,8 @@ const Checker = ({
             className=".hwAcceleration"
             checkerRef={checkerRef}
             style={{
-              transform: `translate3d(${x}px, ${y}px, 0)`,
+              transform: `translate3d(${x}px, ${y}px, 0) scale(1, ${scaleVal})`,
+              ...!isNil(isColumnHovered) ? cancelParentScaleTransitionStyle : {},
             }}
           />
         );

@@ -1,3 +1,6 @@
+import { createSelector } from 'reselect';
+import { colsSelector } from './game-selectors';
+
 // import { createSelector } from 'reselect';
 
 export const leftDashCheckerSelector = state => ({
@@ -10,5 +13,7 @@ export const rightDashCheckerSelector = state => ({
   top: state.getIn(['ui', 'rightDashChecker', 'top']),
 });
 
-export const isAnimatingSelector = state =>
-  state.getIn(['ui', 'isAnimating']);
+export const isAnimatingSelector = state => state.getIn(['ui', 'isAnimating']);
+
+export const hoveredColumnsSelector = state =>
+  state.getIn(['ui', 'hoveredColumns']);

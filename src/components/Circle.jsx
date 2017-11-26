@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Circle = ({ size, color, className }) => (
+const Circle = ({ size, color, className, style }) => (
   <svg
     className={className}
     width={`${size}px`}
     height={`${size}px`}
     viewBox="0 0 100 100"
-    style={{ position: 'absolute' }}
+    style={{ position: 'absolute', ...style }}
   >
     <circle fill={color} cx="50" cy="50" r="50" />
   </svg>

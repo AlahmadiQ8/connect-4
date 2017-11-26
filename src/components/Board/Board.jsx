@@ -25,7 +25,7 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
             <Checker
               size={checkerSize}
               color={val ? 'red' : 'yellow'}
-              gridIndex={index}
+              index={index}
             />
           ) : (
             <div />

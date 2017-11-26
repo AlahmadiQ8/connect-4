@@ -7,10 +7,12 @@ import { domRectToObject } from '../utils';
 export const { ui: actions } = createActions({
   ui: {
     SET_DASH_CHECKER_RECT: (rect, side) => ({ rect, side }),
-    INITIALIZE_UI_GRID: (rows, cols) => ({ rows, cols }),
+    INITIALIZE_UI: (rows, cols) => ({ rows, cols }),
     SAVE_SINGLE_BOX_POSITION: (rect, index) => ({ rect, index }),
     START_ANIMATING: undefined,
     ANIMATING_COMPLETE: undefined,
+    SET_CURRENT_HOVERED_COLUMN: (colIndex, val) => ({ colIndex, val }),
+    CLEAR_HOVERED_COLUMNS: cols => ({ cols }),
   },
 });
 
@@ -37,6 +39,7 @@ const defaultState = fromJS({
     y: 0,
   },
   grid: [],
+  hoveredColumns: List(),
 });
 
 export const reducer = handleActions(
@@ -52,14 +55,23 @@ export const reducer = handleActions(
       }
       return state.set('rightDashChecker', Map(domRectToObject(rect)));
     },
-    [actions.initializeUiGrid]: (state, { payload: { rows, cols } }) => {
-      return state.set('grid', List(times(rows * cols, () => null)));
+    [actions.initializeUi]: (state, { payload: { cols } }) => {
+      return state.set('hoveredColumns', List(times(cols, () => null)));
+      // .set('grid', List(times(rows * cols, () => null)))
     },
     [actions.saveSingleBoxPosition]: (state, { payload: { rect, index } }) => {
       return state.setIn(['grid', index], Map(domRectToObject(rect)));
     },
     [actions.startAnimating]: state => state.set('isAnimating', true),
     [actions.animatingComplete]: state => state.set('isAnimating', false),
+    [actions.setCurrentHoveredColumn]: (
+      state,
+      { payload: { colIndex, val } }
+    ) => {
+      return state.setIn(['hoveredColumns', colIndex], val);
+    },
+    [actions.clearHoveredColumns]: (state, { payload: { cols } }) =>
+      state.set('hoveredColumns', List(times(cols, () => null))),
   },
   defaultState
 );

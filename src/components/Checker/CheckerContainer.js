@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import { domRectToObject } from '../../utils';
 import { actions as uiActions } from '../../redux/ui';
@@ -15,7 +16,7 @@ class CheckerContainer extends Component {
   };
 
   componentDidMount() {
-    const { gridIndex, actions } = this.props;
+    const { actions } = this.props;
     this.setState({
       initialPosition: domRectToObject(this.checkerRef.getBoundingClientRect()),
     });
@@ -34,10 +35,17 @@ class CheckerContainer extends Component {
   }
 }
 
+const isColumnHovered = createSelector(
+  gameSelectors.colIndexSelector,
+  uiSelectors.hoveredColumnsSelector,
+  (colIndex, hoveredColumns) => hoveredColumns.get(colIndex)
+);
+
 const mapStateToProps = (state, props) => ({
   leftDashChecker: uiSelectors.leftDashCheckerSelector(state),
   rightDashChecker: uiSelectors.rightDashCheckerSelector(state),
   isInitialized: gameSelectors.isInitializedSelector(state),
+  isColumnHovered: isColumnHovered(state, props),
 });
 
 export default connect(mapStateToProps, null)(

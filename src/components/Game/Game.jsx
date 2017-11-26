@@ -10,6 +10,11 @@ const Game = ({ rows, cols, isInitialized, actions }) => {
   const transitionStyles = !isInitialized
     ? [{ key: '0', style: { opacity: 1 } }]
     : [];
+
+  const init = () => {
+    actions.initializeBoard(rows, cols);
+    actions.initializeUi(rows, cols);
+  };
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -26,7 +31,7 @@ const Game = ({ rows, cols, isInitialized, actions }) => {
                     <span
                       role="button"
                       className="Game-Button"
-                      onClick={() => actions.initializeBoard(rows, cols)}
+                      onClick={init}
                     >
                       play
                     </span>
