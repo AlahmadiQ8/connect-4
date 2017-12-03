@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CloudTextBox = props => {
+const CloudTextBox = () => {
   return (
     <div className="CloudText-Container">
       <svg

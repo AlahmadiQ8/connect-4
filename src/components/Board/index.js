@@ -1,3 +1,1 @@
-import Container from './BoardContainer';
-
-export default Container;
+export { default } from './BoardContainer';

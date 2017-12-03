@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'immutable';
 
 import BoardSquare from '../BoardSquare';
 import Checker from '../Checker';
 
-const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
+const Board = ({ checkerSize, grid, cols }) => {
   const checkerContainerSize = Number.parseInt(checkerSize * 1.4, 10);
   const boardWidth = checkerContainerSize * cols;
 
@@ -37,15 +38,13 @@ const Board = ({ checkerSize, isInitialized, grid, rows, cols }) => {
 };
 
 Board.propTypes = {
-  isInitialized: PropTypes.bool.isRequired,
+  grid: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]).isRequired,
   checkerSize: PropTypes.number,
-  rows: PropTypes.number,
   cols: PropTypes.number,
 };
 
 Board.defaultProps = {
   checkerSize: 50,
-  rows: 6,
   cols: 7,
 };
 

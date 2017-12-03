@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isNil from 'lodash/isNil';
 import Circle from '../Circle';
 
 const boardColor = 'rgba(33, 150, 243, 1)';
@@ -25,7 +24,7 @@ const BoardSquare = ({ children, checkerSize, squareSize, actions, isColumnHover
     backgroundColor: boardColor,
     height: `${squareSize}px`,
     width: `${squareSize}px`,
-    ...!isNil(isColumnHovered) ? transformStyle : {},
+    ...isColumnHovered ? transformStyle : {},
   };
   return (
     <div
@@ -38,7 +37,7 @@ const BoardSquare = ({ children, checkerSize, squareSize, actions, isColumnHover
     >
       <Circle
         size={checkerSize}
-        style={!isNil(isColumnHovered) ? cancelParentScaleStyle : {}}
+        style={isColumnHovered ? cancelParentScaleStyle : {}}
       />
       {children}
     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import isNil from 'lodash/isNil';
 
 import CheckerSvg from './CheckerSvg';
 
@@ -33,7 +32,7 @@ const Checker = ({
       style={{
         x: spring(shouldMove ? distanceX : 0),
         y: spring(shouldMove ? distanceY : 0),
-        scaleVal: !isNil(isColumnHovered) ? 1 / scaleRatio : 1,
+        scaleVal: isColumnHovered ? 1 / scaleRatio : 1,
       }}
     >
       {({ x, y, scaleVal }) => {
@@ -49,7 +48,7 @@ const Checker = ({
             checkerRef={checkerRef}
             style={{
               transform: `translate3d(${x}px, ${y}px, 0) scale(1, ${scaleVal})`,
-              ...!isNil(isColumnHovered) ? cancelParentScaleTransitionStyle : {},
+              ...isColumnHovered ? cancelParentScaleTransitionStyle : {},
             }}
           />
         );
@@ -71,6 +70,7 @@ Checker.propTypes = {
   leftDashChecker: recBoundaryPropTypes,
   rightDashChecker: recBoundaryPropTypes,
   initialPosition: recBoundaryPropTypes.isRequired,
+  isColumnHovered: PropTypes.bool,
 };
 
 Checker.defaultProps = {
@@ -78,6 +78,7 @@ Checker.defaultProps = {
   size: 50,
   leftDashChecker: { left: 0, top: 0 },
   rightDashChecker: { left: 0, top: 0 },
+  isColumnHovered: false,
 };
 
 export default Checker;

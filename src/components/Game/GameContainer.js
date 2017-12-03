@@ -5,7 +5,7 @@ import { DragDropContext } from 'react-dnd';
 import { actions as gameActions } from '../../redux/game';
 import { actions as uiActions } from '../../redux/ui';
 import * as gameSelectors from '../../redux/game-selectors';
-import * as uiSelectors from '../../redux/ui-selectors';
+// import * as uiSelectors from '../../redux/ui-selectors';
 
 import GameAsDropTarget from './GameAsDropTarget';
 

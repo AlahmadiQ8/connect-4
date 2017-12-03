@@ -16,9 +16,11 @@
         }
       }
     ],
+    "react/no-did-mount-set-state": 1,
+    "function-paren-newline": 0,
+    "no-mixed-operators": 0,
     "jsx-a11y/interactive-supports-focus": 0,
     "jsx-a11y/click-events-have-key-events": 0,
-    "function-paren-newline": ["error", "multiline"],
     "no-param-reassign": 0,
     "react/no-array-index-key": 0,
     "react/jsx-filename-extension": 0,

@@ -1,5 +1,4 @@
-import { createSelector } from 'reselect';
-import { colsSelector } from './game-selectors';
+// import { createSelector } from 'reselect';
 
 // import { createSelector } from 'reselect';
 
@@ -15,5 +14,5 @@ export const rightDashCheckerSelector = state => ({
 
 export const isAnimatingSelector = state => state.getIn(['ui', 'isAnimating']);
 
-export const hoveredColumnsSelector = state =>
+export const columnsHoverStatusSelector = state =>
   state.getIn(['ui', 'hoveredColumns']);

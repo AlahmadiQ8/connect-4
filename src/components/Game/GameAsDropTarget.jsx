@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 import { ItemTypes } from '../../dragAndDrop';
 
@@ -10,6 +11,14 @@ const targetCollect = (connect, monitor) => ({
 });
 
 class GameAsDropTarget extends Component {
+  static propTypes = {
+    isOver: PropTypes.bool.isRequired,
+    actions: PropTypes.shape({
+      clearHoveredColumns: PropTypes.func.isRequired,
+    }).isRequired,
+    cols: PropTypes.number.isRequired,
+    connectDropTarget: PropTypes.func.isRequired,
+  };
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.isOver && nextProps.isOver) {

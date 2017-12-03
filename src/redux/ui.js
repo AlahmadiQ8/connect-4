@@ -56,7 +56,7 @@ export const reducer = handleActions(
       return state.set('rightDashChecker', Map(domRectToObject(rect)));
     },
     [actions.initializeUi]: (state, { payload: { cols } }) => {
-      return state.set('hoveredColumns', List(times(cols, () => null)));
+      return state.set('hoveredColumns', List(times(cols, () => false)));
       // .set('grid', List(times(rows * cols, () => null)))
     },
     [actions.saveSingleBoxPosition]: (state, { payload: { rect, index } }) => {
@@ -71,7 +71,7 @@ export const reducer = handleActions(
       return state.setIn(['hoveredColumns', colIndex], val);
     },
     [actions.clearHoveredColumns]: (state, { payload: { cols } }) =>
-      state.set('hoveredColumns', List(times(cols, () => null))),
+      state.set('hoveredColumns', List(times(cols, () => false))),
   },
   defaultState
 );

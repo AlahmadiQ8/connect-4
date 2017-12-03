@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators, compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect as connectRedux } from 'react-redux';
 import { DragSource } from 'react-dnd';
 
 import { actions as uiActions } from '../../redux/ui';
@@ -13,11 +14,21 @@ const sourceSpec = {
   },
 };
 
-const sourceCollect = (connect, monitor) => ({
+const sourceCollect = (connect) => ({
   connectDragSource: connect.dragSource(),
 });
 
 class CheckerDraggableContainer extends Component {
+
+  static propTypes = {
+    getRectDirection: PropTypes.oneOf(['left', 'right']).isRequired,
+    actions: PropTypes.shape({
+      setDashCheckerRect: PropTypes.func.isRequired,
+    }).isRequired,
+    connectDragSource: PropTypes.PropTypes.func.isRequired,
+    // isDragging: PropTypes.bool.isRequired,
+    color: PropTypes.string.isRequired,
+  }
   componentDidMount() {
     const { getRectDirection, actions } = this.props;
     actions.setDashCheckerRect(
@@ -27,7 +38,7 @@ class CheckerDraggableContainer extends Component {
   }
 
   render() {
-    const { connectDragSource, isDragging, color } = this.props;
+    const { connectDragSource, color } = this.props;
     return connectDragSource(
       <div>
         <CheckerSvg
@@ -53,5 +64,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   DragSource(ItemTypes.CHECKER, sourceSpec, sourceCollect),
-  connect(null, mapDispatchToProps)
+  connectRedux(null, mapDispatchToProps)
 )(CheckerDraggableContainer);
