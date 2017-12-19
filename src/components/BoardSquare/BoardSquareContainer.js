@@ -15,9 +15,8 @@ import BoardSquare from './BoardSquare';
 
 const targetSpec = {
   drop(props) {
-    // actions.setCurrentColumnHovered
-    // actions.
-    console.log(`dropped at ${props.index}`);
+    props.actions.insertChecker();
+    props.actions.setHoveredColumn(props.colIndex, false);
   },
 };
 
@@ -103,6 +102,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 };
 
 export default compose(
-  DropTarget(ItemTypes.CHECKER, targetSpec, targetCollect),
-  connectRedux(mapStateToProps, null, mergeProps)
+  connectRedux(mapStateToProps, null, mergeProps),
+  DropTarget(ItemTypes.CHECKER, targetSpec, targetCollect)
 )(BoardSquareContainer);

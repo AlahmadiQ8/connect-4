@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import { CheckerDraggable } from '../Checker';
 
-const PlayerDash = ({ total, used, color, showDash }) => {
+const PlayerDash = ({ total, used, color, showDash, playerId }) => {
   const getRectDirection = color === 'yellow' ? 'left' : 'right';
   const floatStyle = dir => ({ float: dir });
   return (
     <div className="PlayerDash-Container">
       <CheckerDraggable
+        playerId={playerId}
         getRectDirection={getRectDirection}
         color={showDash ? color : 'white'}
       />
@@ -31,6 +32,7 @@ PlayerDash.propTypes = {
   total: PropTypes.number,
   used: PropTypes.number,
   showDash: PropTypes.bool,
+  playerId: PropTypes.number.isRequired,
 };
 
 PlayerDash.defaultProps = {

@@ -19,12 +19,17 @@ const cancelParentScaleStyle = {
   transition: 'transform 0.2s ease-out',
 };
 
-const BoardSquare = ({ children, checkerSize, squareSize, actions, isColumnHovered }) => {
+const BoardSquare = ({
+  children,
+  checkerSize,
+  squareSize,
+  isColumnHovered,
+}) => {
   const boxStyles = {
     backgroundColor: boardColor,
     height: `${squareSize}px`,
     width: `${squareSize}px`,
-    ...isColumnHovered ? transformStyle : {},
+    ...(isColumnHovered ? transformStyle : {}),
   };
   return (
     <div
@@ -32,7 +37,6 @@ const BoardSquare = ({ children, checkerSize, squareSize, actions, isColumnHover
       className="BoardSquare-box"
       size={`${squareSize}px`}
       style={boxStyles}
-      onClick={actions.insertChecker}
       role="button"
     >
       <Circle
@@ -48,9 +52,7 @@ BoardSquare.propTypes = {
   children: PropTypes.element,
   checkerSize: PropTypes.number,
   squareSize: PropTypes.number,
-  actions: PropTypes.shape({
-    insertChecker: PropTypes.func,
-  }).isRequired,
+  isColumnHovered: PropTypes.bool.isRequired,
 };
 
 BoardSquare.defaultProps = {

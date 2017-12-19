@@ -4,6 +4,7 @@ import { bindActionCreators, compose } from 'redux';
 import { connect as connectRedux } from 'react-redux';
 import { DragSource } from 'react-dnd';
 
+import * as gameSelectors from '../../redux/game-selectors';
 import { actions as uiActions } from '../../redux/ui';
 import { ItemTypes } from '../../dragAndDrop';
 import CheckerSvg from './CheckerSvg';
@@ -11,6 +12,10 @@ import CheckerSvg from './CheckerSvg';
 const sourceSpec = {
   beginDrag() {
     return {};
+  },
+
+  canDrag(props) {
+    return props.playerId === props.currentPlayerIndex;
   },
 };
 
@@ -29,6 +34,7 @@ class CheckerDraggableContainer extends Component {
     // isDragging: PropTypes.bool.isRequired,
     color: PropTypes.string.isRequired,
   }
+
   componentDidMount() {
     const { getRectDirection, actions } = this.props;
     actions.setDashCheckerRect(
@@ -53,6 +59,10 @@ class CheckerDraggableContainer extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  currentPlayerIndex: gameSelectors.currentPlayerIndexSelector(state),
+});
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
@@ -63,6 +73,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-  DragSource(ItemTypes.CHECKER, sourceSpec, sourceCollect),
-  connectRedux(null, mapDispatchToProps)
+  connectRedux(mapStateToProps, mapDispatchToProps),
+  DragSource(ItemTypes.CHECKER, sourceSpec, sourceCollect)
 )(CheckerDraggableContainer);
