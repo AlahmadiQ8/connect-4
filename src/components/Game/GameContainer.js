@@ -13,6 +13,8 @@ const mapStateToProps = state => ({
   rows: gameSelectors.rowsSelector(state),
   cols: gameSelectors.colsSelector(state),
   isInitialized: gameSelectors.isInitializedSelector(state),
+  currentPlayerIndex: gameSelectors.currentPlayerIndexSelector(state),
+  winner: gameSelectors.winnerSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

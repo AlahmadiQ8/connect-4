@@ -25,6 +25,7 @@ const expected = fromJS({
       y: 0,
     },
     grid: [],
+    hoveredColumns: [],
   },
   game: {
     grid: [],

@@ -15,16 +15,15 @@ const sourceSpec = {
   },
 
   canDrag(props) {
-    return props.playerId === props.currentPlayerIndex;
+    return props.playerId === props.currentPlayerIndex && props.winner === null;
   },
 };
 
-const sourceCollect = (connect) => ({
+const sourceCollect = connect => ({
   connectDragSource: connect.dragSource(),
 });
 
 class CheckerDraggableContainer extends Component {
-
   static propTypes = {
     getRectDirection: PropTypes.oneOf(['left', 'right']).isRequired,
     actions: PropTypes.shape({
@@ -33,7 +32,7 @@ class CheckerDraggableContainer extends Component {
     connectDragSource: PropTypes.PropTypes.func.isRequired,
     // isDragging: PropTypes.bool.isRequired,
     color: PropTypes.string.isRequired,
-  }
+  };
 
   componentDidMount() {
     const { getRectDirection, actions } = this.props;
@@ -61,6 +60,7 @@ class CheckerDraggableContainer extends Component {
 
 const mapStateToProps = state => ({
   currentPlayerIndex: gameSelectors.currentPlayerIndexSelector(state),
+  winner: gameSelectors.winnerSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

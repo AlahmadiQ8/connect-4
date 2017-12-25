@@ -20,6 +20,24 @@ export const { game: actions } = createActions({
   },
 });
 
+const checkWinner = state => {
+  const args = [
+    state.get('grid'),
+    state.get('rows'),
+    state.get('cols'),
+    state.get('currentPlayerIndex'),
+  ];
+  if (
+    checkHorizontalWin(...args) ||
+    checkVerticalWin(...args) ||
+    checkDiagonalWinLeftToRight(...args) ||
+    checkDiagonalWinRightToLeft(...args)
+  ) {
+    return state.set('winner', state.get('currentPlayerIndex'));
+  }
+  return state;
+};
+
 const defaultState = fromJS({
   grid: [],
   cols: 7,
@@ -61,32 +79,17 @@ export const reducer = handleActions(
       if (index < 0) {
         return state;
       }
-      return state
+      const newState = state
         .setIn(['grid', index], curPlayerIndex)
         .updateIn(
           ['players', curPlayerIndex, 'availableCheckers'],
           val => val - 1
-        )
-        .update('currentPlayerIndex', val => 1 - val);
+        );
+
+      return checkWinner(newState).update('currentPlayerIndex', val => 1 - val);
     },
 
-    [actions.checkWinner]: state => {
-      const args = [
-        state.get('grid'),
-        state.get('rows'),
-        state.get('cols'),
-        state.get('currentPlayerIndex'),
-      ];
-      if (
-        checkHorizontalWin(...args) ||
-        checkVerticalWin(...args) ||
-        checkDiagonalWinLeftToRight(...args) ||
-        checkDiagonalWinRightToLeft(...args)
-      ) {
-        return state.set('winner', state.get('currentPlayerIndex'));
-      }
-      return state;
-    },
+    [actions.checkWinner]: checkWinner,
   },
   defaultState
 );

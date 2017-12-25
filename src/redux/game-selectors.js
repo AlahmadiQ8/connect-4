@@ -4,6 +4,7 @@ export const gridSelector = state => state.getIn(['game', 'grid']);
 export const colsSelector = state => state.getIn(['game', 'cols']);
 export const rowsSelector = state => state.getIn(['game', 'rows']);
 export const playersSelector = state => state.getIn(['game', 'players']);
+export const winnerSelector = state => state.getIn(['game', 'winner']);
 export const currentPlayerIndexSelector = state =>
   state.getIn(['game', 'currentPlayerIndex']);
 export const checkersAvailSelector = (state, props) =>
