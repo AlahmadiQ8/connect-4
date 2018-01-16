@@ -51,7 +51,8 @@ export const getValidIndexes = (grid, rows, cols) =>
 export const checkHorizontalWin = (grid, rows, cols, playerIndex) => {
   for (let i = 0; i < rows; i += 1) {
     const indexes = getRowIndexes(rows, cols, i);
-    if (_scanIndexes(grid, indexes, playerIndex)) return true;
+    const result = _scanIndexes(grid, indexes, playerIndex);
+    if (result) return result;
   }
   return false;
 };
@@ -59,7 +60,8 @@ export const checkHorizontalWin = (grid, rows, cols, playerIndex) => {
 export const checkVerticalWin = (grid, rows, cols, playerIndex) => {
   for (let i = 0; i < cols; i += 1) {
     const colIndexes = getColIndexes(rows, cols, i);
-    if (_scanIndexes(grid, colIndexes, playerIndex)) return true;
+    const result = _scanIndexes(grid, colIndexes, playerIndex);
+    if (result) return result;
   }
   return false;
 };
@@ -67,13 +69,15 @@ export const checkVerticalWin = (grid, rows, cols, playerIndex) => {
 export const checkDiagonalWinLeftToRight = (grid, rows, cols, playerIndex) => {
   for (let i = 1; i < cols - 3; i += 1) {
     const indexes = range(i, (rows - i + 1) * cols, cols + 1);
-    if (_scanIndexes(grid, indexes, playerIndex)) return true;
+    const result = _scanIndexes(grid, indexes, playerIndex);
+    if (result) return result;
   }
 
   const colIndexes = getColIndexes(rows, cols, 0).slice(0, rows - 3);
   for (let i = 0; i < colIndexes.length; i += 1) {
     const indexes = range(colIndexes[i], rows * cols - i - 1, cols + 1);
-    if (_scanIndexes(grid, indexes, playerIndex)) return true;
+    const result = _scanIndexes(grid, indexes, playerIndex);
+    if (result) return result;
   }
 
   return false;
@@ -82,7 +86,8 @@ export const checkDiagonalWinLeftToRight = (grid, rows, cols, playerIndex) => {
 export const checkDiagonalWinRightToLeft = (grid, rows, cols, playerIndex) => {
   for (let i = cols - 2; i >= 3; i -= 1) {
     const indexes = range(i, i * cols + 1, rows);
-    if (_scanIndexes(grid, indexes, playerIndex)) return true;
+    const result = _scanIndexes(grid, indexes, playerIndex);
+    if (result) return result;
   }
 
   for (let i = cols - 1; i < cols * (rows - 3); i += cols) {
@@ -91,7 +96,8 @@ export const checkDiagonalWinRightToLeft = (grid, rows, cols, playerIndex) => {
       cols * rows - (cols - 2) + Math.floor(i / cols),
       rows
     );
-    if (_scanIndexes(grid, indexes, playerIndex)) return true;
+    const result = _scanIndexes(grid, indexes, playerIndex);
+    if (result) return result;
   }
 
   return false;
@@ -100,7 +106,7 @@ export const checkDiagonalWinRightToLeft = (grid, rows, cols, playerIndex) => {
 function _scanIndexes(grid, indexes, playerIndex) {
   for (let j = 0; j < indexes.length - 3; j += 1) {
     const test = indexes.slice(j, j + 4);
-    if (_testWin(grid, test, playerIndex)) return true;
+    if (_testWin(grid, test, playerIndex)) return test;
   }
   return false;
 }
@@ -117,7 +123,7 @@ function _testWin(grid, testIndexes, playerIndex) {
     .filter(_keyIn(...testIndexes))
     .every(val => val !== null && val === playerIndex);
   if (didWin) {
-    return true;
+    return testIndexes;
   }
 
   return false;

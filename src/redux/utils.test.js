@@ -77,7 +77,7 @@ test('checkHorizontalWin returns true when there is a horizontal win for player 
     .set(38, 0)
     .set(39, 0)
     .set(40, 0);
-  expect(checkHorizontalWin(grid, 6, 7, 0)).toBe(true);
+  expect(checkHorizontalWin(grid, 6, 7, 0)).toBeTruthy();
   expect(checkHorizontalWin(grid, 6, 7, 1)).toBe(false);
   grid = List(times(42, i => i))
     .set(21, 1)
@@ -85,7 +85,7 @@ test('checkHorizontalWin returns true when there is a horizontal win for player 
     .set(23, 1)
     .set(24, 1);
   expect(checkHorizontalWin(grid, 6, 7, 0)).toBe(false);
-  expect(checkHorizontalWin(grid, 6, 7, 1)).toBe(true);
+  expect(checkHorizontalWin(grid, 6, 7, 1)).toBeTruthy();
 });
 
 test('checkVerticalWin returns false given a grid of nulls', () => {
@@ -100,7 +100,7 @@ test('checkVerticalWin returns true when there is a Vertical win for player inde
     .set(21, 0)
     .set(28, 0)
     .set(35, 0);
-  expect(checkVerticalWin(grid, 6, 7, 0)).toBe(true);
+  expect(checkVerticalWin(grid, 6, 7, 0)).toBeTruthy();
   expect(checkVerticalWin(grid, 6, 7, 1)).toBe(false);
   grid = List(times(42, i => null))
     .set(6, 1)
@@ -108,14 +108,14 @@ test('checkVerticalWin returns true when there is a Vertical win for player inde
     .set(20, 1)
     .set(27, 1);
   expect(checkVerticalWin(grid, 6, 7, 0)).toBe(false);
-  expect(checkVerticalWin(grid, 6, 7, 1)).toBe(true);
+  expect(checkVerticalWin(grid, 6, 7, 1)).toBeTruthy();
   grid = List(times(42, i => null))
     .set(11, 1)
     .set(18, 1)
     .set(25, 1)
     .set(32, 1);
   expect(checkVerticalWin(grid, 6, 7, 0)).toBe(false);
-  expect(checkVerticalWin(grid, 6, 7, 1)).toBe(true);
+  expect(checkVerticalWin(grid, 6, 7, 1)).toBeTruthy();
 });
 
 test('checkDiagonalWinLeftToRight returns false given a grid of nulls', () => {
@@ -130,7 +130,7 @@ test('checkDiagonalWinLeftToRight return true when there is a diagonal win from 
     .set(8, 0)
     .set(16, 0)
     .set(24, 0);
-  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBe(true);
+  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBeTruthy();
   expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBe(false);
   grid = List(times(42, i => i))
     .set(16, 1)
@@ -138,13 +138,13 @@ test('checkDiagonalWinLeftToRight return true when there is a diagonal win from 
     .set(32, 1)
     .set(40, 1);
   expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBe(false);
-  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBe(true);
+  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBeTruthy();
   grid = List(times(42, i => null))
     .set(3, 0)
     .set(11, 0)
     .set(19, 0)
     .set(27, 0);
-  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBe(true);
+  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBeTruthy();
   expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBe(false);
   grid = List(times(42, i => i))
     .set(7, 1)
@@ -152,14 +152,14 @@ test('checkDiagonalWinLeftToRight return true when there is a diagonal win from 
     .set(23, 1)
     .set(31, 1);
   expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBe(false);
-  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBe(true);
+  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBeTruthy();
   grid = List(times(42, i => i))
     .set(14, 1)
     .set(22, 1)
     .set(30, 1)
     .set(38, 1);
   expect(checkDiagonalWinLeftToRight(grid, 6, 7, 0)).toBe(false);
-  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBe(true);
+  expect(checkDiagonalWinLeftToRight(grid, 6, 7, 1)).toBeTruthy();
 });
 
 test('checkDiagonalWinLeftToRight returns false given a grid with only three diagonal matches', () => {
@@ -183,7 +183,7 @@ test('checkDiagonalWinRightToLeft return true when there is a diagonal win from 
     .set(12, 0)
     .set(18, 0)
     .set(24, 0);
-  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBe(true);
+  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBeTruthy();
   expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBe(false);
   grid = List(times(42, i => i))
     .set(18, 1)
@@ -191,13 +191,13 @@ test('checkDiagonalWinRightToLeft return true when there is a diagonal win from 
     .set(30, 1)
     .set(36, 1);
   expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBe(false);
-  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBe(true);
+  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBeTruthy();
   grid = List(times(42, i => null))
     .set(3, 0)
     .set(9, 0)
     .set(15, 0)
     .set(21, 0);
-  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBe(true);
+  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBeTruthy();
   expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBe(false);
   grid = List(times(42, i => i))
     .set(13, 1)
@@ -205,14 +205,14 @@ test('checkDiagonalWinRightToLeft return true when there is a diagonal win from 
     .set(25, 1)
     .set(31, 1);
   expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBe(false);
-  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBe(true);
+  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBeTruthy();
   grid = List(times(42, i => i))
     .set(20, 1)
     .set(26, 1)
     .set(32, 1)
     .set(38, 1);
   expect(checkDiagonalWinRightToLeft(grid, 6, 7, 0)).toBe(false);
-  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBe(true);
+  expect(checkDiagonalWinRightToLeft(grid, 6, 7, 1)).toBeTruthy();
 });
 
 test('checkDiagonalWinRightToLeft returns false given a grid with only three diagonal matches', () => {

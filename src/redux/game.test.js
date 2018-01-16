@@ -11,6 +11,7 @@ const initialState = fromJS({
   rows: 0,
   currentPlayerIndex: 0,
   winner: null,
+  winnerIndexes: [],
   players: [
     {
       name: 'A',

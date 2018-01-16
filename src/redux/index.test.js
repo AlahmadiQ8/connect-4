@@ -33,6 +33,7 @@ const expected = fromJS({
     rows: 6,
     currentPlayerIndex: 0,
     winner: null,
+    winningIndexes: [],
     players: [
       {
         name: 'A',

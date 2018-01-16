@@ -27,13 +27,15 @@ const checkWinner = state => {
     state.get('cols'),
     state.get('currentPlayerIndex'),
   ];
-  if (
+  const winningIndexes =
     checkHorizontalWin(...args) ||
     checkVerticalWin(...args) ||
     checkDiagonalWinLeftToRight(...args) ||
-    checkDiagonalWinRightToLeft(...args)
-  ) {
-    return state.set('winner', state.get('currentPlayerIndex'));
+    checkDiagonalWinRightToLeft(...args);
+  if (winningIndexes) {
+    return state
+      .set('winner', state.get('currentPlayerIndex'))
+      .set('winningIndexes', fromJS(winningIndexes));
   }
   return state;
 };
@@ -44,6 +46,7 @@ const defaultState = fromJS({
   rows: 6,
   currentPlayerIndex: 0,
   winner: null,
+  winningIndexes: [],
   players: [
     {
       name: 'A',

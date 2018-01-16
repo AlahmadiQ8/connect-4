@@ -113,6 +113,26 @@ body {
   color: #f8bbd0;
 }
 
+.CheckerSvg-flash {
+  animation: flash 0.25s infinite alternate linear;
+}
+
+@keyframes flash {
+  0% {
+    filter: brightness(100%);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(120%);
+    transform: scale(1.2);
+  }
+  100% {
+    filter: brightness(100%);
+    transform: scale(1);
+  } 
+}
+
+
 @keyframes jiggle {
   0% {
     transform: rotate(5deg);

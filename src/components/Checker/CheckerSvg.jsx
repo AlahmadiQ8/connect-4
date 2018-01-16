@@ -15,9 +15,9 @@ const colors = {
   },
 };
 
-const CheckerSvg = ({ color, size, className, checkerRef, style }) => (
+const CheckerSvg = ({ color, size, className, checkerRef, style, flash }) => (
   <svg
-    className={className}
+    className={`${className} ${flash ? 'CheckerSvg-flash' : ''}`}
     width={`${size}px`}
     height={`${size}px`}
     viewBox="0 0 200 200"
