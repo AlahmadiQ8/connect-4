@@ -22,7 +22,8 @@ const randomFilledGrid = (rows, cols) => {
 class BoardContainer extends Component {
   static propTypes = {
     isInitialized: PropTypes.bool.isRequired,
-    grid: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]).isRequired,
+    grid: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array])
+      .isRequired,
     rows: PropTypes.number.isRequired,
     cols: PropTypes.number.isRequired,
     isAnimating: PropTypes.bool.isRequired,

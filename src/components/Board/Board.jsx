@@ -38,7 +38,8 @@ const Board = ({ checkerSize, grid, cols }) => {
 };
 
 Board.propTypes = {
-  grid: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]).isRequired,
+  grid: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array])
+    .isRequired,
   checkerSize: PropTypes.number,
   cols: PropTypes.number,
 };

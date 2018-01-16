@@ -40,7 +40,7 @@ class BoardSquareContainer extends Component {
 
   static defaultProps = {
     isColumnHovered: false,
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     const { colIndex, actions: { setHoveredColumn } } = this.props;

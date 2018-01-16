@@ -16,4 +16,3 @@ test('isInitializedSelector returns false when grid size = 0', () => {
   const result = isInitializedSelector(state);
   expect(result).toBe(false);
 });
-

@@ -21,8 +21,7 @@ const Checker = ({
   initialPosition,
   isColumnHovered,
 }) => {
-  const moveTo =
-    color === 'red' ? rightDashChecker : leftDashChecker;
+  const moveTo = color === 'red' ? rightDashChecker : leftDashChecker;
   const { left, top } = moveTo;
   const distanceX = left - initialPosition.left;
   const distanceY = top - initialPosition.top;
@@ -48,7 +47,7 @@ const Checker = ({
             checkerRef={checkerRef}
             style={{
               transform: `translate3d(${x}px, ${y}px, 0) scale(1, ${scaleVal})`,
-              ...isColumnHovered ? cancelParentScaleTransitionStyle : {},
+              ...(isColumnHovered ? cancelParentScaleTransitionStyle : {}),
             }}
           />
         );
