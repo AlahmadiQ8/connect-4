@@ -20,6 +20,7 @@ const Checker = ({
   rightDashChecker,
   initialPosition,
   isColumnHovered,
+  isWinningIndex,
 }) => {
   const moveTo = color === 'red' ? rightDashChecker : leftDashChecker;
   const { left, top } = moveTo;
@@ -49,6 +50,7 @@ const Checker = ({
               transform: `translate3d(${x}px, ${y}px, 0) scale(1, ${scaleVal})`,
               ...(isColumnHovered ? cancelParentScaleTransitionStyle : {}),
             }}
+            flash={isWinningIndex}
           />
         );
       }}
@@ -70,6 +72,7 @@ Checker.propTypes = {
   rightDashChecker: recBoundaryPropTypes,
   initialPosition: recBoundaryPropTypes.isRequired,
   isColumnHovered: PropTypes.bool,
+  isWinningIndex: PropTypes.bool,
 };
 
 Checker.defaultProps = {
@@ -78,6 +81,7 @@ Checker.defaultProps = {
   leftDashChecker: { left: 0, top: 0 },
   rightDashChecker: { left: 0, top: 0 },
   isColumnHovered: false,
+  isWinningIndex: false,
 };
 
 export default Checker;

@@ -42,6 +42,7 @@ const mapStateToProps = (state, props) => ({
   leftDashChecker: uiSelectors.leftDashCheckerSelector(state),
   rightDashChecker: uiSelectors.rightDashCheckerSelector(state),
   isInitialized: gameSelectors.isInitializedSelector(state),
+  isWinningIndex: gameSelectors.isWinningIndexSelector(state, props),
   isColumnHovered: isColumnHovered(state, props),
 });
 
