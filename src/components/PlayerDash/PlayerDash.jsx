@@ -15,11 +15,11 @@ const PlayerDash = ({ total, used, color, showDash, playerId }) => {
       />
       <div>
         <div className="PlayerDash-DashRow">
-          <span style={floatStyle('left')}>Available Checkers</span>
+          <span style={floatStyle('left')}>Used Checkers</span>
           <span style={floatStyle('right')}>{total - used}</span>
         </div>
         <div className="PlayerDash-DashRow">
-          <span style={floatStyle('left')}>Used Checkers</span>
+          <span style={floatStyle('left')}>Available Checkers</span>
           <span style={floatStyle('right')}>{used}</span>
         </div>
       </div>

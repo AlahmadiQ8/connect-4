@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const CloudTextBox = () => {
+const CloudTextBox = ({ textInCloud, bottomText }) => {
   return (
     <div className="CloudText-Container">
       <svg
@@ -17,7 +18,7 @@ const CloudTextBox = () => {
             fill="#F48FB1"
           >
             <tspan x="18" y="65">
-              Your Turn
+              {textInCloud}
             </tspan>
           </text>
           <path
@@ -28,10 +29,24 @@ const CloudTextBox = () => {
         </g>
       </svg>
       <div className="CloudText-Text">
-        Drag and drop a checker<br />to the board
+        {bottomText}
       </div>
     </div>
   );
+};
+
+CloudTextBox.propTypes = {
+  textInCloud: PropTypes.string,
+  bottomText: PropTypes.element,
+};
+
+CloudTextBox.defaultProps = {
+  textInCloud: 'Your Turn',
+  bottomText: (
+    <div>
+      Drag and drop a checker<br />to the board
+    </div>
+  ),
 };
 
 export default CloudTextBox;
