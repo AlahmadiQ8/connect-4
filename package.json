@@ -2,6 +2,7 @@
   "name": "connect-4-temp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alahmadiq8.github.io/connect-4",
   "dependencies": {
     "bootstrap": "4.0.0-beta",
     "immutable": "v4.0.0-rc.9",
@@ -29,7 +30,8 @@
     "storybook": "start-storybook -p 6006",
     "eject": "react-scripts eject",
     "gpush": "yarn test -- --coverage && git push origin master && codecov --token=64aa0e17-e4ef-4ddc-8064-2ae25dfc8552",
-    "prettier": "prettier --write \"src/**/*.{js,jsx}\""
+    "prettier": "prettier --write \"src/**/*.{js,jsx}\"",
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "collectCoverageFrom": [
