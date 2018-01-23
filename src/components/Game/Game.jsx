@@ -13,6 +13,7 @@ const Game = ({
   actions,
   currentPlayerIndex,
   winner,
+  isGameComplete,
 }) => {
   const transitionStyles = !isInitialized
     ? [{ key: '0', style: { opacity: 1 } }]
@@ -26,40 +27,56 @@ const Game = ({
     currentPlayerIndex === index && winner === null;
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <section className="Game-BoardSection col d-flex flex-column align-items-center justify-content-end order-2">
-          <TransitionMotion
-            willLeave={() => ({ opacity: spring(0) })}
-            styles={transitionStyles}
-          >
-            {configs => (
-              <div>
-                {configs.map(config => (
-                  <h1 className="Game-h1" key={config.key} style={config.style}>
-                    Welcome! To start a new game, click{' '}
-                    <span role="button" className="Game-Button" onClick={init}>
-                      play
-                    </span>
-                  </h1>
-                ))}
-              </div>
+    <div>
+      <div className={isGameComplete ? 'pyro' : ''}>
+        <div className="before" />
+        <div className="after" />
+      </div>
+      <div className="container">
+        <div className="row justify-content-center">
+          <section className="Game-BoardSection col d-flex flex-column align-items-center justify-content-end order-2">
+            <TransitionMotion
+              willLeave={() => ({ opacity: spring(0) })}
+              styles={transitionStyles}
+            >
+              {configs => (
+                <div>
+                  {configs.map(config => (
+                    <h1
+                      className="Game-h1"
+                      key={config.key}
+                      style={config.style}
+                    >
+                      Welcome! To start a new game, click{' '}
+                      <span
+                        role="button"
+                        className="Game-Button"
+                        onClick={init}
+                      >
+                        play
+                      </span>
+                    </h1>
+                  ))}
+                </div>
+              )}
+            </TransitionMotion>
+            <Board rows={rows} cols={cols} />
+          </section>
+          {isInitialized &&
+            !isGameComplete && (
+              <section className="Game-section col d-flex flex-column align-items-center justify-content-end order-1">
+                {shouldShowCloud(0) && <CloudTextBox />}
+                <PlayerDash color="yellow" playerId={0} used={15} />
+              </section>
             )}
-          </TransitionMotion>
-          <Board rows={rows} cols={cols} />
-        </section>
-        {isInitialized && (
-          <section className="Game-section col d-flex flex-column align-items-center justify-content-end order-1">
-            {shouldShowCloud(0) && <CloudTextBox />}
-            <PlayerDash color="yellow" playerId={0} used={15} />
-          </section>
-        )}
-        {isInitialized && (
-          <section className="col d-flex flex-column align-items-center justify-content-end order-3">
-            {shouldShowCloud(1) && <CloudTextBox />}
-            <PlayerDash color="red" playerId={1} used={15} />
-          </section>
-        )}
+          {isInitialized &&
+            !isGameComplete && (
+              <section className="col d-flex flex-column align-items-center justify-content-end order-3">
+                {shouldShowCloud(1) && <CloudTextBox />}
+                <PlayerDash color="red" playerId={1} used={15} />
+              </section>
+            )}
+        </div>
       </div>
     </div>
   );
@@ -74,6 +91,7 @@ Game.propTypes = {
   }).isRequired,
   currentPlayerIndex: PropTypes.number,
   winner: PropTypes.number,
+  isGameComplete: PropTypes.bool.isRequired,
 };
 
 Game.defaultProps = {

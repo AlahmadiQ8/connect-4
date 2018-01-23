@@ -33,3 +33,8 @@ export const isWinningIndexSelector = createSelector(
   (_, props) => props.index,
   (winningIndexes, index) => winningIndexes.includes(index)
 );
+
+export const isGameCompleteSelector = createSelector(
+  winnerSelector,
+  winner => typeof winner === 'number'
+);

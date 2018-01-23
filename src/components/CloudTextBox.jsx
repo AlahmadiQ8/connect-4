@@ -28,9 +28,7 @@ const CloudTextBox = ({ textInCloud, bottomText }) => {
           />
         </g>
       </svg>
-      <div className="CloudText-Text">
-        {bottomText}
-      </div>
+      <div className="CloudText-Text">{bottomText}</div>
     </div>
   );
 };

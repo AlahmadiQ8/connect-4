@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
   isInitialized: gameSelectors.isInitializedSelector(state),
   currentPlayerIndex: gameSelectors.currentPlayerIndexSelector(state),
   winner: gameSelectors.winnerSelector(state),
+  isGameComplete: gameSelectors.isGameCompleteSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
