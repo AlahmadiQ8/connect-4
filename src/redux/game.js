@@ -66,6 +66,9 @@ export const reducer = handleActions(
         .set('grid', List(times(rows * cols, () => null)))
         .set('cols', cols)
         .set('rows', rows)
+        .set('winner', null)
+        .set('currentPlayerIndex', 0)
+        .set('winningIndexes', [])
         .setIn(['players', 0, 'availableCheckers'], rows * cols / 2)
         .setIn(['players', 1, 'availableCheckers'], rows * cols / 2),
 

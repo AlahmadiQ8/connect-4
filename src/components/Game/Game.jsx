@@ -15,7 +15,7 @@ const Game = ({
   winner,
   isGameComplete,
 }) => {
-  const transitionStyles = !isInitialized
+  const initialTextTransitionStyles = !isInitialized
     ? [{ key: '0', style: { opacity: 1 } }]
     : [];
 
@@ -35,9 +35,19 @@ const Game = ({
       <div className="container">
         <div className="row justify-content-center">
           <section className="Game-BoardSection col d-flex flex-column align-items-center justify-content-end order-2">
+            {isGameComplete && (
+              <h1 className="Game-h1">
+                Congrats! Click{' '}
+                <span role="button" className="Game-Button" onClick={init}>
+                  Restart
+                </span>{' '}
+                to play again
+              </h1>
+            )}
+
             <TransitionMotion
               willLeave={() => ({ opacity: spring(0) })}
-              styles={transitionStyles}
+              styles={initialTextTransitionStyles}
             >
               {configs => (
                 <div>
