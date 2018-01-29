@@ -75,13 +75,13 @@ class BoardSquareContainer extends Component {
 }
 
 const isColumnHoveredSelector = createSelector(
-  gameSelectors.colIndexSelector,
+  gameSelectors.makeColIndexSelector(),
   uiSelectors.columnsHoverStatusSelector,
   (colIndex, columnsHoverStatus) => columnsHoverStatus.get(colIndex)
 );
 
 const mapStateToProps = (state, props) => ({
-  colIndex: gameSelectors.colIndexSelector(state, props),
+  colIndex: gameSelectors.makeColIndexSelector()(state, props),
   isColumnHovered: isColumnHoveredSelector(state, props),
   columnsHoverStatus: uiSelectors.columnsHoverStatusSelector(state),
 });

@@ -32,18 +32,19 @@ class CheckerContainer extends Component {
   }
 }
 
-const isColumnHovered = createSelector(
-  gameSelectors.colIndexSelector,
-  uiSelectors.columnsHoverStatusSelector,
-  (colIndex, columnsHoverStatus) => columnsHoverStatus.get(colIndex)
-);
+const makeIsColumnHovered = () =>
+  createSelector(
+    gameSelectors.makeColIndexSelector(),
+    uiSelectors.columnsHoverStatusSelector,
+    (colIndex, columnsHoverStatus) => columnsHoverStatus.get(colIndex)
+  );
 
 const mapStateToProps = (state, props) => ({
   leftDashChecker: uiSelectors.leftDashCheckerSelector(state),
   rightDashChecker: uiSelectors.rightDashCheckerSelector(state),
   isInitialized: gameSelectors.isInitializedSelector(state),
-  isWinningIndex: gameSelectors.isWinningIndexSelector(state, props),
-  isColumnHovered: isColumnHovered(state, props),
+  isWinningIndex: gameSelectors.makeIsWinningIndexSelector()(state, props),
+  isColumnHovered: makeIsColumnHovered()(state, props),
 });
 
 export default connect(mapStateToProps, null)(CheckerContainer);

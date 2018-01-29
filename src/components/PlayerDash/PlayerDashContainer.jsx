@@ -5,16 +5,16 @@ import PlayerDash from './PlayerDash';
 import * as gameSelectors from '../../redux/game-selectors';
 import * as uiSelectors from '../../redux/ui-selectors';
 
-const finishedAnimatingSelector = createSelector(
+const makeFinishedAnimatingSelector = () => createSelector(
   gameSelectors.isInitializedSelector,
   uiSelectors.isAnimatingSelector,
   (isInitialized, isAnimating) => isInitialized && !isAnimating
 );
 
 const mapStateToProps = (state, props) => ({
-  showDash: finishedAnimatingSelector(state),
+  showDash: makeFinishedAnimatingSelector()(state),
   total: gameSelectors.totalSelector(state),
-  used: gameSelectors.checkersAvailSelector(state, props.playerId),
+  used: gameSelectors.makeCheckersAvailSelector()(state, props),
 });
 
 export default connect(mapStateToProps, null)(PlayerDash);

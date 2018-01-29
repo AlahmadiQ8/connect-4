@@ -1,18 +1,29 @@
-// import { createSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
-// import { createSelector } from 'reselect';
+const uiSelector = state => state.get('ui');
 
-export const leftDashCheckerSelector = state => ({
-  left: state.getIn(['ui', 'leftDashChecker', 'left']),
-  top: state.getIn(['ui', 'leftDashChecker', 'top']),
-});
+export const leftDashCheckerSelector = createSelector(
+  uiSelector,
+  ui => ({
+    left: ui.getIn(['leftDashChecker', 'left']),
+    top: ui.getIn(['leftDashChecker', 'top']),
+  })
+);
 
-export const rightDashCheckerSelector = state => ({
-  left: state.getIn(['ui', 'rightDashChecker', 'left']),
-  top: state.getIn(['ui', 'rightDashChecker', 'top']),
-});
+export const rightDashCheckerSelector = createSelector(
+  uiSelector,
+  ui => ({
+    left: ui.getIn(['rightDashChecker', 'left']),
+    top: ui.getIn(['rightDashChecker', 'top']),
+  })
+);
 
-export const isAnimatingSelector = state => state.getIn(['ui', 'isAnimating']);
+export const isAnimatingSelector = createSelector(
+  uiSelector,
+  ui => ui.get('isAnimating')
+);
 
-export const columnsHoverStatusSelector = state =>
-  state.getIn(['ui', 'hoveredColumns']);
+export const columnsHoverStatusSelector = createSelector(
+  uiSelector,
+  ui => ui.get('hoveredColumns')
+);

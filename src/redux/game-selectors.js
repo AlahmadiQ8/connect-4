@@ -1,16 +1,47 @@
 import { createSelector } from 'reselect';
 
-export const gridSelector = state => state.getIn(['game', 'grid']);
-export const colsSelector = state => state.getIn(['game', 'cols']);
-export const rowsSelector = state => state.getIn(['game', 'rows']);
-export const playersSelector = state => state.getIn(['game', 'players']);
-export const winnerSelector = state => state.getIn(['game', 'winner']);
-export const winningIndexesSelector = state =>
-  state.getIn(['game', 'winningIndexes']);
-export const currentPlayerIndexSelector = state =>
-  state.getIn(['game', 'currentPlayerIndex']);
-export const checkersAvailSelector = (state, props) =>
-  state.getIn(['game', 'players', props, 'availableCheckers']);
+const gameSelector = state => state.get('game');
+
+export const gridSelector = createSelector(
+  gameSelector,
+  game => game.get('grid')
+);
+
+export const colsSelector = createSelector(
+  gameSelector,
+  game => game.get('cols')
+);
+
+export const rowsSelector = createSelector(
+  gameSelector,
+  game => game.get('rows')
+);
+
+export const playersSelector = createSelector(
+  gameSelector,
+  game => game.get('players')
+);
+
+export const winnerSelector = createSelector(
+  gameSelector,
+  game => game.get('winner')
+);
+
+export const winningIndexesSelector = createSelector(
+  gameSelector,
+  game => game.get('winningIndexes')
+);
+
+export const currentPlayerIndexSelector = createSelector(
+  gameSelector,
+  game => game.get('currentPlayerIndex')
+);
+
+export const makeCheckersAvailSelector = () => createSelector(
+  gameSelector,
+  (_, props) => props.playerId,
+  (game, playerId) => game.getIn(['players', playerId, 'availableCheckers'])
+);
 
 export const isInitializedSelector = createSelector(
   gridSelector,
@@ -22,17 +53,19 @@ export const totalSelector = createSelector(
   (rows, cols) => rows * cols / 2
 );
 
-export const colIndexSelector = createSelector(
-  colsSelector,
-  (_, props) => props.index,
-  (cols, index) => index % cols
-);
+export const makeColIndexSelector = () =>
+  createSelector(
+    colsSelector,
+    (_, props) => props.index,
+    (cols, index) => index % cols
+  );
 
-export const isWinningIndexSelector = createSelector(
-  winningIndexesSelector,
-  (_, props) => props.index,
-  (winningIndexes, index) => winningIndexes.includes(index)
-);
+export const makeIsWinningIndexSelector = () =>
+  createSelector(
+    winningIndexesSelector,
+    (_, props) => props.index,
+    (winningIndexes, index) => winningIndexes.includes(index)
+  );
 
 export const isGameCompleteSelector = createSelector(
   winnerSelector,
