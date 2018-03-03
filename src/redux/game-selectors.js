@@ -2,46 +2,40 @@ import { createSelector } from 'reselect';
 
 const gameSelector = state => state.get('game');
 
-export const gridSelector = createSelector(
-  gameSelector,
-  game => game.get('grid')
+export const gridSelector = createSelector(gameSelector, game =>
+  game.get('grid')
 );
 
-export const colsSelector = createSelector(
-  gameSelector,
-  game => game.get('cols')
+export const colsSelector = createSelector(gameSelector, game =>
+  game.get('cols')
 );
 
-export const rowsSelector = createSelector(
-  gameSelector,
-  game => game.get('rows')
+export const rowsSelector = createSelector(gameSelector, game =>
+  game.get('rows')
 );
 
-export const playersSelector = createSelector(
-  gameSelector,
-  game => game.get('players')
+export const playersSelector = createSelector(gameSelector, game =>
+  game.get('players')
 );
 
-export const winnerSelector = createSelector(
-  gameSelector,
-  game => game.get('winner')
+export const winnerSelector = createSelector(gameSelector, game =>
+  game.get('winner')
 );
 
-export const winningIndexesSelector = createSelector(
-  gameSelector,
-  game => game.get('winningIndexes')
+export const winningIndexesSelector = createSelector(gameSelector, game =>
+  game.get('winningIndexes')
 );
 
-export const currentPlayerIndexSelector = createSelector(
-  gameSelector,
-  game => game.get('currentPlayerIndex')
+export const currentPlayerIndexSelector = createSelector(gameSelector, game =>
+  game.get('currentPlayerIndex')
 );
 
-export const makeCheckersAvailSelector = () => createSelector(
-  gameSelector,
-  (_, props) => props.playerId,
-  (game, playerId) => game.getIn(['players', playerId, 'availableCheckers'])
-);
+export const makeCheckersAvailSelector = () =>
+  createSelector(
+    gameSelector,
+    (_, props) => props.playerId,
+    (game, playerId) => game.getIn(['players', playerId, 'availableCheckers'])
+  );
 
 export const isInitializedSelector = createSelector(
   gridSelector,

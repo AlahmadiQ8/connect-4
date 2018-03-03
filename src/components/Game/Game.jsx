@@ -45,7 +45,11 @@ const Game = ({
               </h1>
             )}
 
-            <div><a href="https://github.com/AlahmadiQ8/connect-4">Project Github Link</a></div>
+            <div>
+              <a href="https://github.com/AlahmadiQ8/connect-4">
+                Project Github Link
+              </a>
+            </div>
             <TransitionMotion
               willLeave={() => ({ opacity: spring(0) })}
               styles={initialTextTransitionStyles}
